@@ -1,0 +1,84 @@
+<h2>Design — Section 3 of 3: Features & Screens</h2>
+<p class="subtitle">Every screen, what it does, and key implementation notes.</p>
+
+<div class="section">
+  <h3>Auth & Onboarding</h3>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Sign-in</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Splash with logo + "Continue with Google" button. Triggers <code>google_sign_in</code> + Firebase Auth. On success, router redirects: new user → /onboarding, returning published user → /app.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Onboarding<br><span style="font-weight:400;color:#888;">(4 steps)</span></div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Name+age → Photo (image_picker + Storage upload) → Bio (180 char limit) → Interests (pick 3–6 from pool of 24) → Preview → Publish. Each step writes to Firestore. Step bar shows progress. Back navigation works across all steps.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Main App (Bottom Nav — 4 tabs)</h3>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Discover</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">2-column grid of published profiles (excludes self + paused). Heart button on each card toggles like. Tap card → full profile view. Real-time Firestore stream.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Chats</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Lists mutual matches with last message preview + unread badge. Horizontal avatar row at top. Tap → chat thread. Chat unlocked only when both users have liked each other. Badge on tab icon for unread count.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Liked You</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">List of users who have liked the current user. Badge count on tab. Tap any → profile view.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">You</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Your profile summary — avatar, name/age, bio, interests. Buttons to Preview profile and Edit bio. Settings gear top-right.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Fullscreen Screens</h3>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Profile View</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Square hero photo, name + age, city, bio, interest chips. Fixed bottom bar with Back (ghost) + Like (primary) buttons. Like button toggles; match toast fires if mutual.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Chat Thread</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Bubble UI — outgoing coral, incoming white. Match card at top. Avatar grouping for consecutive messages. Send on tap or Enter (keyboard). Messages stream from Firestore subcollection in real time. Marks messages read on open.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Settings</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Pause profile toggle (hides from feed), Edit profile photo, Who can see me. Notifications section (UI only for now). Sign out — clears auth state, redirects to sign-in.</div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #eee;">
+      <div style="width:90px;flex-shrink:0;font-weight:600;font-size:12px;color:#1a1440;">Edit Bio</div>
+      <div style="font-size:12px;color:#444;line-height:1.5;">Standalone bio editor (180 char limit). Save writes directly to Firestore. Toast confirms save.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Cross-cutting</h3>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:10px;padding:10px 14px;background:#f2eeff;border-radius:8px;border:1px solid #e0d9ff;">
+      <span style="font-size:14px;">🎨</span>
+      <span style="font-size:12px;color:#1a1440;"><strong>Theme:</strong> Bold Playful — Fraunces display, Plus Jakarta Sans body, lavender bg (#f2eeff), coral accent (#ff5a6e), large radii.</span>
+    </div>
+    <div style="display:flex;gap:10px;padding:10px 14px;background:#f2eeff;border-radius:8px;border:1px solid #e0d9ff;">
+      <span style="font-size:14px;">🍞</span>
+      <span style="font-size:12px;color:#1a1440;"><strong>Toast:</strong> Floating pill at bottom — "Liked Maya", "It's a match! 🎉", "Bio updated", "Profile published". Auto-dismisses after 2.2s.</span>
+    </div>
+    <div style="display:flex;gap:10px;padding:10px 14px;background:#f2eeff;border-radius:8px;border:1px solid #e0d9ff;">
+      <span style="font-size:14px;">🔒</span>
+      <span style="font-size:12px;color:#1a1440;"><strong>Auth guard:</strong> go_router redirect checks auth state on every navigation. Unauthenticated → /signin. Authenticated + no profile → /onboarding. Published → /app.</span>
+    </div>
+    <div style="display:flex;gap:10px;padding:10px 14px;background:#f2eeff;border-radius:8px;border:1px solid #e0d9ff;">
+      <span style="font-size:14px;">📱</span>
+      <span style="font-size:12px;color:#1a1440;"><strong>Platform:</strong> Android primary (as requested). iOS-compatible but google-services.json setup covers Android; GoogleService-Info.plist needed separately for iOS.</span>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Does this feature breakdown look complete? Anything to add or cut before I write the spec?</p>

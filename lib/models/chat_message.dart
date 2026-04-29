@@ -1,0 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ChatMessage {
+  final String id;
+  final String senderId;
+  final String text;
+  final DateTime? sentAt;
+  final bool read;
+
+  const ChatMessage({
+    required this.id,
+    required this.senderId,
+    required this.text,
+    this.sentAt,
+    this.read = false,
+  });
+
+  factory ChatMessage.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data() ?? const <String, dynamic>{};
+    return ChatMessage(
+      id: doc.id,
+      senderId: (data['senderId'] as String?) ?? '',
+      text: (data['text'] as String?) ?? '',
+      sentAt: (data['sentAt'] as Timestamp?)?.toDate(),
+      read: (data['read'] as bool?) ?? false,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'senderId': senderId,
+      'text': text,
+      'sentAt': FieldValue.serverTimestamp(),
+      'read': read,
+    };
+  }
+}

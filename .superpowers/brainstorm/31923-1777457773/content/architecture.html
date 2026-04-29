@@ -1,0 +1,78 @@
+<h2>Design — Section 1 of 3: Architecture</h2>
+<p class="subtitle">Flutter + Riverpod + go_router + Firebase. Review and let me know if anything looks wrong.</p>
+
+<div class="section">
+  <h3>Project Structure</h3>
+  <div class="mockup">
+    <div class="mockup-header">lib/</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:1.8;color:#333;">
+      <div>📁 <strong>core/</strong></div>
+      <div style="margin-left:20px;">📁 <strong>firebase/</strong> — FirebaseAuth, Firestore, Storage init</div>
+      <div style="margin-left:20px;">📁 <strong>router/</strong> — go_router config + route guards</div>
+      <div style="margin-left:20px;">📁 <strong>theme/</strong> — Bold Playful ThemeData (colors, fonts, radii)</div>
+      <div style="margin-left:20px;">📁 <strong>widgets/</strong> — Btn, Chip, Heart, PhotoWidget, Icons (shared)</div>
+      <div style="margin-left:20px;margin-top:4px;"></div>
+      <div>📁 <strong>features/</strong></div>
+      <div style="margin-left:20px;">📁 <strong>auth/</strong> — sign-in screen + Google auth service</div>
+      <div style="margin-left:20px;">📁 <strong>onboarding/</strong> — 4-step flow (name/age → photo → bio → interests)</div>
+      <div style="margin-left:20px;">📁 <strong>feed/</strong> — discover grid + profile view</div>
+      <div style="margin-left:20px;">📁 <strong>chat/</strong> — chat list + chat thread screens</div>
+      <div style="margin-left:20px;">📁 <strong>profile/</strong> — You tab + edit bio + settings</div>
+      <div style="margin-left:20px;margin-top:4px;"></div>
+      <div style="margin-left:20px;color:#888;">Each feature: <em>screens/</em> · <em>providers/</em> · <em>repository/</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>State Management (Riverpod)</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px;">
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">🔐 authProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">Stream&lt;User?&gt; from Firebase Auth. Drives router guard — unauthenticated users land on sign-in.</div>
+    </div>
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">👤 myProfileProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">AsyncNotifier that reads/writes the current user's Firestore doc. Onboarding writes here; You tab reads here.</div>
+    </div>
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">🗂 feedProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">Streams published profiles from Firestore, excluding self. Merges with local like state.</div>
+    </div>
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">❤️ likesProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">Manages like/unlike writes to Firestore. Exposes mutual match detection for chat unlock.</div>
+    </div>
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">💬 chatsProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">Streams matches + message threads from Firestore. Only available for mutual matches.</div>
+    </div>
+    <div style="background:#f8f0ff;border-radius:10px;padding:14px;border:1px solid #e0d9ff;">
+      <div style="font-weight:600;font-size:13px;color:#1a1440;margin-bottom:6px;">🔔 toastProvider</div>
+      <div style="font-size:12px;color:#6f6a99;line-height:1.5;">Simple StateProvider for transient toast messages (liked, matched, bio saved).</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Navigation (go_router)</h3>
+  <div class="mockup">
+    <div class="mockup-header">Route graph</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:1.9;color:#333;">
+      <div>/ → <strong>redirect</strong> (auth guard → /signin or /onboarding or /app)</div>
+      <div>/signin</div>
+      <div>/onboarding/name → /onboarding/photo → /onboarding/bio → /onboarding/interests → /onboarding/preview</div>
+      <div>/app (ShellRoute — bottom nav)</div>
+      <div style="margin-left:20px;">/app/feed</div>
+      <div style="margin-left:20px;">/app/chats</div>
+      <div style="margin-left:20px;">/app/liked-you</div>
+      <div style="margin-left:20px;">/app/you</div>
+      <div>/profile/:userId (fullscreen, back → feed)</div>
+      <div>/chat/:userId (fullscreen, back → /app/chats)</div>
+      <div>/settings (fullscreen, back → /app/you)</div>
+      <div>/edit-bio (fullscreen, back → /app/you)</div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Does this architecture look right? Any concerns before we move to the data model?</p>

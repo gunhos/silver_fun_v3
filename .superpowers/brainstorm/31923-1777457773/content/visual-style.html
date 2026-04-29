@@ -1,0 +1,90 @@
+<h2>Which visual style for Kindred?</h2>
+<p class="subtitle">The prototype had 3 themes. Pick one to implement — or keep all three if you want an in-app switcher.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="editorial" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f6efe7; padding:20px; font-family:'Georgia',serif;">
+      <div style="width:40px;height:40px;border-radius:8px;background:#c85a3a;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div style="font-size:22px;font-weight:500;color:#1f1a15;letter-spacing:-0.02em;line-height:1.1;margin-bottom:6px;">Kindred</div>
+      <div style="font-size:12px;color:#6b5f52;margin-bottom:14px;">A quieter place to meet people.</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:#f0e4d3;padding:5px 10px;border-radius:999px;font-size:11px;color:#1f1a15;font-family:Inter,sans-serif;">Film photography</span>
+        <span style="background:#f0e4d3;padding:5px 10px;border-radius:999px;font-size:11px;color:#1f1a15;font-family:Inter,sans-serif;">Coffee</span>
+      </div>
+      <div style="margin-top:12px;background:#fffaf4;border-radius:10px;padding:10px;border:1px solid #e4d8c8;">
+        <div style="font-size:13px;color:#1f1a15;font-family:Inter,sans-serif;">Maya, 27 · Brooklyn</div>
+        <div style="font-size:11px;color:#6b5f52;margin-top:3px;font-family:Inter,sans-serif;">Film photographer chasing morning light...</div>
+      </div>
+      <div style="margin-top:12px;background:#c85a3a;border-radius:999px;padding:10px;text-align:center;color:white;font-size:13px;font-weight:600;font-family:Inter,sans-serif;">Like Maya</div>
+    </div>
+    <div class="card-body">
+      <h3>Warm Editorial</h3>
+      <p>DM Serif Display + Inter · Peach/cream background · Terracotta accent. Refined, magazine-like, warm.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="tech" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f3f4ef; padding:20px; font-family:'Space Grotesk',system-ui,sans-serif;">
+      <div style="width:40px;height:40px;border-radius:6px;background:#cef24a;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f1210" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div style="font-size:22px;font-weight:600;color:#0f1210;letter-spacing:-0.02em;line-height:1.1;margin-bottom:6px;">Kindred</div>
+      <div style="font-size:12px;color:#6a706a;margin-bottom:14px;">A quieter place to meet people.</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:#eef0e6;padding:5px 10px;border-radius:6px;font-size:11px;color:#0f1210;">Film photography</span>
+        <span style="background:#eef0e6;padding:5px 10px;border-radius:6px;font-size:11px;color:#0f1210;">Coffee</span>
+      </div>
+      <div style="margin-top:12px;background:#fff;border-radius:6px;padding:10px;border:1px solid #e2e4dc;">
+        <div style="font-size:13px;color:#0f1210;">Maya, 27 · Brooklyn</div>
+        <div style="font-size:11px;color:#6a706a;margin-top:3px;">Film photographer chasing morning light...</div>
+      </div>
+      <div style="margin-top:12px;background:#cef24a;border-radius:8px;padding:10px;text-align:center;color:#0f1210;font-size:13px;font-weight:600;">Like Maya</div>
+    </div>
+    <div class="card-body">
+      <h3>Minimal Tech</h3>
+      <p>Space Grotesk · Off-white background · Electric lime accent. Clean, geometric, modern.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="playful" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f2eeff; padding:20px; font-family:'Georgia',serif;">
+      <div style="width:40px;height:40px;border-radius:16px;background:#ff5a6e;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div style="font-size:22px;font-weight:500;color:#1a1440;letter-spacing:-0.02em;line-height:1.1;margin-bottom:6px;font-family:'Georgia',serif;">Kindred</div>
+      <div style="font-size:12px;color:#6f6a99;margin-bottom:14px;font-family:system-ui,sans-serif;">A quieter place to meet people.</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:#ebe4ff;padding:5px 10px;border-radius:999px;font-size:11px;color:#1a1440;font-family:system-ui,sans-serif;">Film photography</span>
+        <span style="background:#ebe4ff;padding:5px 10px;border-radius:999px;font-size:11px;color:#1a1440;font-family:system-ui,sans-serif;">Coffee</span>
+      </div>
+      <div style="margin-top:12px;background:#fff;border-radius:26px;padding:10px;border:1px solid #e0d9ff;">
+        <div style="font-size:13px;color:#1a1440;font-family:system-ui,sans-serif;">Maya, 27 · Brooklyn</div>
+        <div style="font-size:11px;color:#6f6a99;margin-top:3px;font-family:system-ui,sans-serif;">Film photographer chasing morning light...</div>
+      </div>
+      <div style="margin-top:12px;background:#ff5a6e;border-radius:999px;padding:10px;text-align:center;color:white;font-size:13px;font-weight:600;font-family:system-ui,sans-serif;">Like Maya</div>
+    </div>
+    <div class="card-body">
+      <h3>Bold Playful</h3>
+      <p>Fraunces + Jakarta Sans · Lavender background · Hot coral accent. Expressive, fun, youthful.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="all" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#f6efe7 0%,#f3f4ef 50%,#f2eeff 100%);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:120px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <div style="width:20px;height:20px;border-radius:4px;background:#c85a3a;"></div>
+        <div style="width:20px;height:20px;border-radius:3px;background:#cef24a;"></div>
+        <div style="width:20px;height:20px;border-radius:8px;background:#ff5a6e;"></div>
+      </div>
+      <div style="font-size:13px;color:#444;text-align:center;line-height:1.4;">All three themes<br>switchable in Settings</div>
+    </div>
+    <div class="card-body">
+      <h3>Keep All Three</h3>
+      <p>Ship an in-app theme switcher (adds ~1 day of work). Good for showing clients or demoing.</p>
+    </div>
+  </div>
+
+</div>
