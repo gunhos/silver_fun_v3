@@ -100,7 +100,7 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
           ],
         ),
         body: SafeArea(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
             child: _BioEditor(
               controller: _bio,
@@ -117,39 +117,51 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
     return Scaffold(
       backgroundColor: AppColors.bg,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const StepBar(step: 2),
-              const SizedBox(height: 28),
-              Text(
-                'Write a short bio',
-                style: text.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const StepBar(step: 2),
+                        const SizedBox(height: 28),
+                        Text(
+                          'Write a short bio',
+                          style: text.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'A sentence or two about you. Keep it light.',
+                          style: text.bodyMedium
+                              ?.copyWith(color: AppColors.muted),
+                        ),
+                        const SizedBox(height: 24),
+                        _BioEditor(
+                          controller: _bio,
+                          onChanged: notifier.updateBio,
+                        ),
+                        const Spacer(),
+                        const SizedBox(height: 16),
+                        Btn(
+                          label: _saving ? 'Saving…' : 'Continue',
+                          onPressed: form.isBioValid && !_saving
+                              ? _onContinueOnboarding
+                              : null,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(
-                'A sentence or two about you. Keep it light.',
-                style: text.bodyMedium?.copyWith(color: AppColors.muted),
-              ),
-              const SizedBox(height: 24),
-              Expanded(
-                child: _BioEditor(
-                  controller: _bio,
-                  onChanged: notifier.updateBio,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Btn(
-                label: _saving ? 'Saving…' : 'Continue',
-                onPressed:
-                    form.isBioValid && !_saving ? _onContinueOnboarding : null,
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

@@ -67,60 +67,77 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
     return Scaffold(
       backgroundColor: AppColors.bg,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const StepBar(step: 0),
-              const SizedBox(height: 28),
-              Text(
-                "What's your name?",
-                style: text.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const StepBar(step: 0),
+                        const SizedBox(height: 28),
+                        Text(
+                          "What's your name?",
+                          style: text.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'This is what people will see on your profile.',
+                          style: text.bodyMedium
+                              ?.copyWith(color: AppColors.muted),
+                        ),
+                        const SizedBox(height: 28),
+                        TextField(
+                          controller: _name,
+                          textCapitalization: TextCapitalization.words,
+                          onChanged: notifier.updateName,
+                          decoration: const InputDecoration(
+                            labelText: 'First name',
+                          ),
+                          style: text.titleLarge,
+                        ),
+                        const SizedBox(height: 24),
+                        TextField(
+                          controller: _age,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(3),
+                          ],
+                          onChanged: (v) =>
+                              notifier.updateAge(int.tryParse(v)),
+                          decoration: const InputDecoration(
+                            labelText: 'Age',
+                          ),
+                          style: text.titleLarge,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'You must be 18 or older to use Kindred.',
+                          style: text.bodySmall
+                              ?.copyWith(color: AppColors.muted),
+                        ),
+                        const Spacer(),
+                        const SizedBox(height: 16),
+                        Btn(
+                          label: _saving ? 'Saving…' : 'Continue',
+                          onPressed: form.isNameAgeValid && !_saving
+                              ? _onContinue
+                              : null,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(
-                'This is what people will see on your profile.',
-                style: text.bodyMedium?.copyWith(color: AppColors.muted),
-              ),
-              const SizedBox(height: 28),
-              TextField(
-                controller: _name,
-                textCapitalization: TextCapitalization.words,
-                onChanged: notifier.updateName,
-                decoration: const InputDecoration(
-                  labelText: 'First name',
-                ),
-                style: text.titleLarge,
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: _age,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(3),
-                ],
-                onChanged: (v) => notifier.updateAge(int.tryParse(v)),
-                decoration: const InputDecoration(
-                  labelText: 'Age',
-                ),
-                style: text.titleLarge,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'You must be 18 or older to use Kindred.',
-                style: text.bodySmall?.copyWith(color: AppColors.muted),
-              ),
-              const Spacer(),
-              Btn(
-                label: _saving ? 'Saving…' : 'Continue',
-                onPressed: form.isNameAgeValid && !_saving ? _onContinue : null,
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

@@ -54,6 +54,7 @@ class FeedScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final profile = profiles[index];
               return _ProfileCard(
+                key: ValueKey(profile.uid),
                 profile: profile,
                 onTap: () => context.push('/profile/${profile.uid}'),
                 onLike: () =>
@@ -73,6 +74,7 @@ class _ProfileCard extends StatelessWidget {
   final VoidCallback onLike;
 
   const _ProfileCard({
+    super.key,
     required this.profile,
     required this.onTap,
     required this.onLike,
@@ -94,9 +96,9 @@ class _ProfileCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            AspectRatio(
-              aspectRatio: 3 / 4,
+            Expanded(
               child: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -113,7 +115,7 @@ class _ProfileCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -122,7 +124,7 @@ class _ProfileCard extends StatelessWidget {
                     profile.age > 0
                         ? '${profile.name}, ${profile.age}'
                         : profile.name,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                     maxLines: 1,
@@ -141,14 +143,24 @@ class _ProfileCard extends StatelessWidget {
                     ),
                   ],
                   if (chips.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 6,
-                      runSpacing: 6,
-                      children: [
-                        for (final c in chips)
-                          ChipTag(label: c, size: ChipSize.sm),
-                      ],
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      height: 24,
+                      child: ClipRect(
+                        child: OverflowBox(
+                          alignment: Alignment.centerLeft,
+                          maxWidth: double.infinity,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              for (var i = 0; i < chips.length; i++) ...[
+                                if (i > 0) const SizedBox(width: 6),
+                                ChipTag(label: chips[i], size: ChipSize.sm),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ],
