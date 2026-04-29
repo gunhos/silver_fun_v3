@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/providers/auth_provider.dart';
 import '../../features/auth/screens/sign_in_screen.dart';
+import '../../features/feed/screens/feed_screen.dart';
+import '../../features/feed/screens/profile_view_screen.dart';
 import '../../features/onboarding/screens/add_photo_screen.dart';
 import '../../features/onboarding/screens/edit_bio_screen.dart';
 import '../../features/onboarding/screens/interests_screen.dart';
@@ -83,7 +85,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/app/feed',
-        builder: (_, _) => const StubScreen(title: 'Discover'),
+        builder: (_, _) => const FeedScreen(),
       ),
       GoRoute(
         path: '/app/chats',
@@ -100,7 +102,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile/:userId',
         builder: (_, state) =>
-            StubScreen(title: 'Profile ${state.pathParameters['userId']}'),
+            ProfileViewScreen(userId: state.pathParameters['userId']!),
       ),
       GoRoute(
         path: '/chat/:userId',
