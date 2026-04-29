@@ -18,6 +18,7 @@ import '../../features/profile/providers/my_profile_provider.dart';
 import '../../features/profile/screens/liked_you_screen.dart';
 import '../../features/profile/screens/settings_screen.dart';
 import '../../features/profile/screens/you_screen.dart';
+import '../widgets/main_shell.dart';
 import '../widgets/stub_screen.dart';
 
 class RouterNotifier extends ChangeNotifier {
@@ -88,21 +89,26 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/onboarding/preview',
         builder: (_, _) => const PreviewScreen(),
       ),
-      GoRoute(
-        path: '/app/feed',
-        builder: (_, _) => const FeedScreen(),
-      ),
-      GoRoute(
-        path: '/app/chats',
-        builder: (_, _) => const ChatListScreen(),
-      ),
-      GoRoute(
-        path: '/app/liked-you',
-        builder: (_, _) => const LikedYouScreen(),
-      ),
-      GoRoute(
-        path: '/app/you',
-        builder: (_, _) => const YouScreen(),
+      ShellRoute(
+        builder: (_, _, child) => MainShell(child: child),
+        routes: [
+          GoRoute(
+            path: '/app/feed',
+            builder: (_, _) => const FeedScreen(),
+          ),
+          GoRoute(
+            path: '/app/liked-you',
+            builder: (_, _) => const LikedYouScreen(),
+          ),
+          GoRoute(
+            path: '/app/chats',
+            builder: (_, _) => const ChatListScreen(),
+          ),
+          GoRoute(
+            path: '/app/you',
+            builder: (_, _) => const YouScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: '/profile/:userId',

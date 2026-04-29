@@ -28,4 +28,10 @@ class FeedRepository {
     if (!doc.exists) return null;
     return UserProfile.fromFirestore(doc);
   }
+
+  Stream<UserProfile?> watchUser(String uid) {
+    return _users.doc(uid).snapshots().map(
+          (doc) => doc.exists ? UserProfile.fromFirestore(doc) : null,
+        );
+  }
 }

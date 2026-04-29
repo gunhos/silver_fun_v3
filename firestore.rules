@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isChatParticipant(chatId) {
+      return isSignedIn()
+        && chatId.split('_').hasAny([request.auth.uid]);
+    }
+
+    // User profiles
+    match /users/{uid} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == uid
+        || resource.data.get('published', false) == true
+      );
+      allow write: if isOwner(uid);
+    }
+
+    // Forward like index: likes/{fromUid}/liked/{toUid}
+    match /likes/{fromUid}/liked/{toUid} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == fromUid
+        || request.auth.uid == toUid
+      );
+      allow create, delete: if isOwner(fromUid);
+    }
+
+    // Reverse like index: likedBy/{toUid}/from/{fromUid}
+    // Written by `fromUid` atomically alongside the forward index.
+    match /likedBy/{toUid}/from/{fromUid} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == toUid
+        || request.auth.uid == fromUid
+      );
+      allow create, delete: if isOwner(fromUid);
+    }
+
+    // Chats — only participants of the chat can read/write.
+    match /chats/{chatId} {
+      allow read, write: if isChatParticipant(chatId);
+
+      match /messages/{messageId} {
+        allow read: if isChatParticipant(chatId);
+        allow create: if isChatParticipant(chatId)
+          && request.resource.data.senderId == request.auth.uid;
+        allow update: if isChatParticipant(chatId);
+        allow delete: if false;
+      }
+    }
+
+    // Deny everything else.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

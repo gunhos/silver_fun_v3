@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:silver_fun/features/feed/repository/feed_repository.dart';
@@ -100,6 +101,39 @@ void main() {
       expect(loaded.name, 'Alice');
       expect(loaded.city, 'NYC');
       expect(loaded.age, 28);
+    });
+
+    test('watchUser emits null when the doc does not exist', () async {
+      final first = await repo.watchUser('ghost').first;
+      expect(first, isNull);
+    });
+
+    test('watchUser emits the latest doc snapshot', () async {
+      await seed('a', _userDoc(name: 'Alice'));
+
+      final loaded = await repo.watchUser('a').first;
+      expect(loaded, isNotNull);
+      expect(loaded!.uid, 'a');
+      expect(loaded.name, 'Alice');
+      expect(loaded.bio, 'Hi.');
+    });
+
+    test('watchUser re-emits when the doc updates', () async {
+      await seed('a', _userDoc(name: 'Alice'));
+
+      final emissions = <String?>[];
+      final sub = repo.watchUser('a').listen((p) => emissions.add(p?.bio));
+
+      await Future<void>.delayed(Duration.zero);
+      await firestore
+          .collection('users')
+          .doc('a')
+          .set({'bio': 'New bio.'}, SetOptions(merge: true));
+      await Future<void>.delayed(Duration.zero);
+
+      await sub.cancel();
+      expect(emissions, contains('Hi.'));
+      expect(emissions.last, 'New bio.');
     });
   });
 }

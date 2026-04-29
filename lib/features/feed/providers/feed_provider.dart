@@ -28,3 +28,8 @@ final profileByIdProvider =
     FutureProvider.family<UserProfile?, String>((ref, uid) async {
   return ref.watch(feedRepositoryProvider).getUser(uid);
 });
+
+final userStreamProvider =
+    StreamProvider.family<UserProfile?, String>((ref, uid) {
+  return ref.watch(feedRepositoryProvider).watchUser(uid);
+});

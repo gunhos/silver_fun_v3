@@ -17,7 +17,7 @@ class ProfileViewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileAsync = ref.watch(profileByIdProvider(userId));
+    final profileAsync = ref.watch(userStreamProvider(userId));
     final likedSet = ref.watch(likedByMeProvider).valueOrNull ?? const <String>{};
     final isLiked = likedSet.contains(userId);
 
@@ -67,7 +67,6 @@ class _ProfileBody extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SafeArea(
-      bottom: false,
       child: Stack(
         children: [
           ListView(

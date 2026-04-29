@@ -62,7 +62,7 @@ class _LikerRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileAsync = ref.watch(profileByIdProvider(uid));
+    final profileAsync = ref.watch(userStreamProvider(uid));
 
     return profileAsync.when(
       loading: () => const _RowSkeleton(),

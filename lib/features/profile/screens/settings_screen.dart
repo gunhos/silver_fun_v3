@@ -58,72 +58,75 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-        children: [
-          _SectionTitle('Profile'),
-          _SettingsCard(
-            children: [
-              SwitchListTile.adaptive(
-                value: paused,
-                onChanged: _busy ? null : _onTogglePause,
-                title: const Text('Pause profile'),
-                subtitle: Text(
-                  paused
-                      ? 'Hidden from the discover feed.'
-                      : 'Visible in the discover feed.',
-                  style: const TextStyle(color: AppColors.muted),
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+          children: [
+            _SectionTitle('Profile'),
+            _SettingsCard(
+              children: [
+                SwitchListTile.adaptive(
+                  value: paused,
+                  onChanged: _busy ? null : _onTogglePause,
+                  title: const Text('Pause profile'),
+                  subtitle: Text(
+                    paused
+                        ? 'Hidden from the discover feed.'
+                        : 'Visible in the discover feed.',
+                    style: const TextStyle(color: AppColors.muted),
+                  ),
+                  activeThumbColor: AppColors.accent,
                 ),
-                activeThumbColor: AppColors.accent,
-              ),
-              const _DividerRow(),
-              const ListTile(
-                title: Text('Edit profile photo'),
-                trailing: Icon(Icons.chevron_right, color: AppColors.muted),
-              ),
-              const _DividerRow(),
-              const ListTile(
-                title: Text('Who can see me'),
-                subtitle: Text(
-                  'Everyone',
-                  style: TextStyle(color: AppColors.muted),
+                const _DividerRow(),
+                const ListTile(
+                  title: Text('Edit profile photo'),
+                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
                 ),
-                trailing: Icon(Icons.chevron_right, color: AppColors.muted),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          _SectionTitle('Notifications'),
-          _SettingsCard(
-            children: const [
-              _UiOnlyToggleRow(label: 'New likes'),
-              _DividerRow(),
-              _UiOnlyToggleRow(label: 'Weekly digest', initial: false),
-            ],
-          ),
-          const SizedBox(height: 20),
-          _SectionTitle('Account'),
-          _SettingsCard(
-            children: const [
-              ListTile(
-                title: Text('Connected with Google'),
-                trailing: Icon(Icons.check, color: AppColors.muted),
-              ),
-              _DividerRow(),
-              ListTile(
-                title: Text('Privacy'),
-                trailing: Icon(Icons.chevron_right, color: AppColors.muted),
-              ),
-              _DividerRow(),
-              ListTile(
-                title: Text('Help'),
-                trailing: Icon(Icons.chevron_right, color: AppColors.muted),
-              ),
-            ],
-          ),
-          const SizedBox(height: 28),
-          _SignOutButton(onPressed: _busy ? null : _onSignOut),
-        ],
+                const _DividerRow(),
+                const ListTile(
+                  title: Text('Who can see me'),
+                  subtitle: Text(
+                    'Everyone',
+                    style: TextStyle(color: AppColors.muted),
+                  ),
+                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            _SectionTitle('Notifications'),
+            _SettingsCard(
+              children: const [
+                _UiOnlyToggleRow(label: 'New likes'),
+                _DividerRow(),
+                _UiOnlyToggleRow(label: 'Weekly digest', initial: false),
+              ],
+            ),
+            const SizedBox(height: 20),
+            _SectionTitle('Account'),
+            _SettingsCard(
+              children: const [
+                ListTile(
+                  title: Text('Connected with Google'),
+                  trailing: Icon(Icons.check, color: AppColors.muted),
+                ),
+                _DividerRow(),
+                ListTile(
+                  title: Text('Privacy'),
+                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                ),
+                _DividerRow(),
+                ListTile(
+                  title: Text('Help'),
+                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                ),
+              ],
+            ),
+            const SizedBox(height: 28),
+            _SignOutButton(onPressed: _busy ? null : _onSignOut),
+          ],
+        ),
       ),
     );
   }
@@ -141,9 +144,9 @@ class _SectionTitle extends StatelessWidget {
       child: Text(
         label,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: AppColors.muted,
-              fontWeight: FontWeight.w600,
-            ),
+          color: AppColors.muted,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

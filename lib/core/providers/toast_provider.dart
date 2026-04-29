@@ -2,22 +2,24 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+const Duration kToastDuration = Duration(milliseconds: 2200);
+
 final toastProvider = StateProvider<String?>((ref) => null);
 
 Timer? _toastTimer;
 
-void showToast(WidgetRef ref, String message) {
-  ref.read(toastProvider.notifier).state = message;
+void _setMessage(StateController<String?> controller, String message) {
+  controller.state = message;
   _toastTimer?.cancel();
-  _toastTimer = Timer(const Duration(milliseconds: 2200), () {
-    ref.read(toastProvider.notifier).state = null;
+  _toastTimer = Timer(kToastDuration, () {
+    controller.state = null;
   });
 }
 
+void showToast(WidgetRef ref, String message) {
+  _setMessage(ref.read(toastProvider.notifier), message);
+}
+
 void showToastFromRef(Ref ref, String message) {
-  ref.read(toastProvider.notifier).state = message;
-  _toastTimer?.cancel();
-  _toastTimer = Timer(const Duration(milliseconds: 2200), () {
-    ref.read(toastProvider.notifier).state = null;
-  });
+  _setMessage(ref.read(toastProvider.notifier), message);
 }
