@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'silver-fun-v2',
     storageBucket: 'silver-fun-v2.firebasestorage.app',
   );
+
 }

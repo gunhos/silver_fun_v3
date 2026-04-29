@@ -80,6 +80,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "703995993998-8ba9jsbvt2cuqt5oifheq9vlk8d5ad5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.mathminds.silver_fun",
+            "certificate_hash": "0257d42fd5e71879fdb1e13bc622f14f2dfb07ec"
+          }
+        },
+        {
           "client_id": "703995993998-hce5q9gaf5qu54eq8oifcgn4pihm0h6e.apps.googleusercontent.com",
           "client_type": 3
         }
