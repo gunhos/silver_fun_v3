@@ -13,6 +13,9 @@ import '../../features/onboarding/screens/interests_screen.dart';
 import '../../features/onboarding/screens/name_age_screen.dart';
 import '../../features/onboarding/screens/preview_screen.dart';
 import '../../features/profile/providers/my_profile_provider.dart';
+import '../../features/profile/screens/liked_you_screen.dart';
+import '../../features/profile/screens/settings_screen.dart';
+import '../../features/profile/screens/you_screen.dart';
 import '../widgets/stub_screen.dart';
 
 class RouterNotifier extends ChangeNotifier {
@@ -93,11 +96,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/app/liked-you',
-        builder: (_, _) => const StubScreen(title: 'Liked You'),
+        builder: (_, _) => const LikedYouScreen(),
       ),
       GoRoute(
         path: '/app/you',
-        builder: (_, _) => const StubScreen(title: 'You'),
+        builder: (_, _) => const YouScreen(),
       ),
       GoRoute(
         path: '/profile/:userId',
@@ -111,11 +114,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/settings',
-        builder: (_, _) => const StubScreen(title: 'Settings'),
+        builder: (_, _) => const SettingsScreen(),
       ),
       GoRoute(
         path: '/edit-bio',
-        builder: (_, _) => const StubScreen(title: 'Edit Bio'),
+        builder: (_, _) => const EditBioScreen(standalone: true),
       ),
     ],
     debugLogDiagnostics: kDebugMode,
