@@ -1,51 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'core/theme/app_colors.dart';
+import 'core/router/router.dart';
 import 'core/theme/app_theme.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const KindredApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const ProviderScope(child: KindredApp()));
 }
 
-class KindredApp extends StatelessWidget {
+class KindredApp extends ConsumerWidget {
   const KindredApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return MaterialApp.router(
       title: 'Kindred',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: const _PlaceholderHome(),
-    );
-  }
-}
-
-class _PlaceholderHome extends StatelessWidget {
-  const _PlaceholderHome();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bg,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Kindred',
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Find your kindred spirits',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: AppColors.muted,
-                  ),
-            ),
-          ],
-        ),
-      ),
+      routerConfig: router,
     );
   }
 }
