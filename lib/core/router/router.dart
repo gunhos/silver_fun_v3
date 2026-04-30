@@ -9,6 +9,9 @@ import '../../features/chat/screens/chat_list_screen.dart';
 import '../../features/chat/screens/chat_screen.dart';
 import '../../features/feed/screens/feed_screen.dart';
 import '../../features/feed/screens/profile_view_screen.dart';
+import '../../features/meetups/screens/create_meetup_screen.dart';
+import '../../features/meetups/screens/meetup_detail_screen.dart';
+import '../../features/meetups/screens/upcoming_meetups_screen.dart';
 import '../../features/onboarding/screens/add_photo_screen.dart';
 import '../../features/onboarding/screens/edit_bio_screen.dart';
 import '../../features/onboarding/screens/interests_screen.dart';
@@ -106,6 +109,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (_, _) => const LikedYouScreen(),
           ),
           GoRoute(
+            path: '/app/meetups',
+            builder: (_, _) => const UpcomingMeetupsScreen(),
+          ),
+          GoRoute(
             path: '/app/chats',
             builder: (_, _) => const ChatListScreen(),
           ),
@@ -124,6 +131,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/chat/:userId',
         builder: (_, state) =>
             ChatScreen(userId: state.pathParameters['userId']!),
+      ),
+      GoRoute(
+        path: '/meetups/new',
+        builder: (_, _) => const CreateMeetupScreen(),
+      ),
+      GoRoute(
+        path: '/meetups/:meetupId',
+        builder: (_, state) =>
+            MeetupDetailScreen(meetupId: state.pathParameters['meetupId']!),
       ),
       GoRoute(
         path: '/settings',

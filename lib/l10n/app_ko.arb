@@ -145,5 +145,48 @@
   "interestGrandkids": "손주",
   "interestDogs": "강아지",
   "interestCats": "고양이",
-  "interestPlants": "식물"
+  "interestPlants": "식물",
+
+  "navMeetups": "모임",
+
+  "meetupsTitle": "모임",
+  "meetupsCreateButton": "모임 만들기",
+  "meetupsEmptyTitle": "예정된 모임이 없어요.",
+  "meetupsEmptySubtitle": "처음으로 모임을 만들어 보세요!",
+  "meetupsErrorPrefix": "모임을 불러오지 못했어요.",
+
+  "meetupCreateTitle": "새 모임",
+  "meetupFieldTitle": "제목",
+  "meetupFieldDescription": "내용",
+  "meetupFieldDateTime": "날짜와 시간",
+  "meetupFieldLocation": "장소",
+  "meetupFieldMaxAttendees": "최대 인원 (선택)",
+  "meetupCreateSave": "모임 만들기",
+  "meetupCreateError": "모임을 만들지 못했어요. 다시 시도해 주세요.",
+
+  "meetupValidationTitleRequired": "제목을 입력해 주세요.",
+  "meetupValidationDateRequired": "날짜와 시간을 선택해 주세요.",
+  "meetupValidationDateInPast": "미래의 날짜와 시간을 선택해 주세요.",
+  "meetupValidationLocationRequired": "장소를 입력해 주세요.",
+  "meetupValidationMaxAttendeesPositive": "1명 이상이어야 해요.",
+
+  "meetupDetailTitle": "모임",
+  "meetupDetailHostedBy": "{name}님이 만든 모임",
+  "meetupDetailHostedByYou": "내가 주최한 모임",
+  "meetupDetailJoined": "{count}명 참여",
+  "meetupDetailJoinedWithCapacity": "{max}명 중 {count}명 참여",
+  "meetupDetailJoinButton": "참여하기",
+  "meetupDetailLeaveButton": "참여 취소",
+  "meetupDetailCancelButton": "모임 취소",
+  "meetupDetailCanceledLabel": "취소됨",
+  "meetupDetailFullLabel": "정원 마감",
+  "meetupDetailNotFound": "모임을 찾을 수 없어요.",
+
+  "meetupListJoinedBadge": "참여 중",
+  "meetupListHostingBadge": "주최",
+
+  "toastMeetupCreated": "모임을 만들었어요",
+  "toastMeetupJoined": "모임에 참여했어요",
+  "toastMeetupLeft": "참여를 취소했어요",
+  "toastMeetupCanceled": "모임을 취소했어요"
 }

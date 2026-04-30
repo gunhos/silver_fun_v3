@@ -26,6 +26,7 @@ class _TabSpec {
 
 String _labelDiscover(AppLocalizations l) => l.navDiscover;
 String _labelLikedYou(AppLocalizations l) => l.navLikedYou;
+String _labelMeetups(AppLocalizations l) => l.navMeetups;
 String _labelChats(AppLocalizations l) => l.navChats;
 String _labelYou(AppLocalizations l) => l.navYou;
 
@@ -41,6 +42,12 @@ const List<_TabSpec> _tabs = [
     label: _labelLikedYou,
     icon: Icons.favorite_outline,
     selectedIcon: Icons.favorite,
+  ),
+  _TabSpec(
+    location: '/app/meetups',
+    label: _labelMeetups,
+    icon: Icons.event_outlined,
+    selectedIcon: Icons.event,
   ),
   _TabSpec(
     location: '/app/chats',
@@ -112,7 +119,7 @@ class MainShell extends ConsumerWidget {
                 _tabs[i],
                 badgeCount: i == 1
                     ? likedCount
-                    : (i == 2 ? unreadTotal : 0),
+                    : (i == 3 ? unreadTotal : 0),
                 l: l,
               ),
           ],

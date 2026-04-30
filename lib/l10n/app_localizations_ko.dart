@@ -400,4 +400,118 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get interestPlants => '식물';
+
+  @override
+  String get navMeetups => '모임';
+
+  @override
+  String get meetupsTitle => '모임';
+
+  @override
+  String get meetupsCreateButton => '모임 만들기';
+
+  @override
+  String get meetupsEmptyTitle => '예정된 모임이 없어요.';
+
+  @override
+  String get meetupsEmptySubtitle => '처음으로 모임을 만들어 보세요!';
+
+  @override
+  String get meetupsErrorPrefix => '모임을 불러오지 못했어요.';
+
+  @override
+  String get meetupCreateTitle => '새 모임';
+
+  @override
+  String get meetupFieldTitle => '제목';
+
+  @override
+  String get meetupFieldDescription => '내용';
+
+  @override
+  String get meetupFieldDateTime => '날짜와 시간';
+
+  @override
+  String get meetupFieldLocation => '장소';
+
+  @override
+  String get meetupFieldMaxAttendees => '최대 인원 (선택)';
+
+  @override
+  String get meetupCreateSave => '모임 만들기';
+
+  @override
+  String get meetupCreateError => '모임을 만들지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get meetupValidationTitleRequired => '제목을 입력해 주세요.';
+
+  @override
+  String get meetupValidationDateRequired => '날짜와 시간을 선택해 주세요.';
+
+  @override
+  String get meetupValidationDateInPast => '미래의 날짜와 시간을 선택해 주세요.';
+
+  @override
+  String get meetupValidationLocationRequired => '장소를 입력해 주세요.';
+
+  @override
+  String get meetupValidationMaxAttendeesPositive => '1명 이상이어야 해요.';
+
+  @override
+  String get meetupDetailTitle => '모임';
+
+  @override
+  String meetupDetailHostedBy(String name) {
+    return '$name님이 만든 모임';
+  }
+
+  @override
+  String get meetupDetailHostedByYou => '내가 주최한 모임';
+
+  @override
+  String meetupDetailJoined(int count) {
+    return '$count명 참여';
+  }
+
+  @override
+  String meetupDetailJoinedWithCapacity(int count, int max) {
+    return '$max명 중 $count명 참여';
+  }
+
+  @override
+  String get meetupDetailJoinButton => '참여하기';
+
+  @override
+  String get meetupDetailLeaveButton => '참여 취소';
+
+  @override
+  String get meetupDetailCancelButton => '모임 취소';
+
+  @override
+  String get meetupDetailCanceledLabel => '취소됨';
+
+  @override
+  String get meetupDetailFullLabel => '정원 마감';
+
+  @override
+  String get meetupDetailNotFound => '모임을 찾을 수 없어요.';
+
+  @override
+  String get meetupListJoinedBadge => '참여 중';
+
+  @override
+  String get meetupListHostingBadge => '주최';
+
+  @override
+  String get toastMeetupCreated => '모임을 만들었어요';
+
+  @override
+  String get toastMeetupJoined => '모임에 참여했어요';
+
+  @override
+  String get toastMeetupLeft => '참여를 취소했어요';
+
+  @override
+  String get toastMeetupCanceled => '모임을 취소했어요';
 }

@@ -847,6 +847,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Plants'**
   String get interestPlants;
+
+  /// No description provided for @navMeetups.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetups'**
+  String get navMeetups;
+
+  /// No description provided for @meetupsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetups'**
+  String get meetupsTitle;
+
+  /// No description provided for @meetupsCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create meetup'**
+  String get meetupsCreateButton;
+
+  /// No description provided for @meetupsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No upcoming meetups.'**
+  String get meetupsEmptyTitle;
+
+  /// No description provided for @meetupsEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to plan one!'**
+  String get meetupsEmptySubtitle;
+
+  /// No description provided for @meetupsErrorPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load meetups.'**
+  String get meetupsErrorPrefix;
+
+  /// No description provided for @meetupCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New meetup'**
+  String get meetupCreateTitle;
+
+  /// No description provided for @meetupFieldTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get meetupFieldTitle;
+
+  /// No description provided for @meetupFieldDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get meetupFieldDescription;
+
+  /// No description provided for @meetupFieldDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Date and time'**
+  String get meetupFieldDateTime;
+
+  /// No description provided for @meetupFieldLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get meetupFieldLocation;
+
+  /// No description provided for @meetupFieldMaxAttendees.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum attendees (optional)'**
+  String get meetupFieldMaxAttendees;
+
+  /// No description provided for @meetupCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create meetup'**
+  String get meetupCreateSave;
+
+  /// No description provided for @meetupCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create meetup. Please try again.'**
+  String get meetupCreateError;
+
+  /// No description provided for @meetupValidationTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title.'**
+  String get meetupValidationTitleRequired;
+
+  /// No description provided for @meetupValidationDateRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick a date and time.'**
+  String get meetupValidationDateRequired;
+
+  /// No description provided for @meetupValidationDateInPast.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a future date and time.'**
+  String get meetupValidationDateInPast;
+
+  /// No description provided for @meetupValidationLocationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add a location.'**
+  String get meetupValidationLocationRequired;
+
+  /// No description provided for @meetupValidationMaxAttendeesPositive.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be 1 or more.'**
+  String get meetupValidationMaxAttendeesPositive;
+
+  /// No description provided for @meetupDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetup'**
+  String get meetupDetailTitle;
+
+  /// No description provided for @meetupDetailHostedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosted by {name}'**
+  String meetupDetailHostedBy(String name);
+
+  /// No description provided for @meetupDetailHostedByYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re hosting'**
+  String get meetupDetailHostedByYou;
+
+  /// No description provided for @meetupDetailJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} joined'**
+  String meetupDetailJoined(int count);
+
+  /// No description provided for @meetupDetailJoinedWithCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {max} joined'**
+  String meetupDetailJoinedWithCapacity(int count, int max);
+
+  /// No description provided for @meetupDetailJoinButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get meetupDetailJoinButton;
+
+  /// No description provided for @meetupDetailLeaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get meetupDetailLeaveButton;
+
+  /// No description provided for @meetupDetailCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel meetup'**
+  String get meetupDetailCancelButton;
+
+  /// No description provided for @meetupDetailCanceledLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get meetupDetailCanceledLabel;
+
+  /// No description provided for @meetupDetailFullLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetup full'**
+  String get meetupDetailFullLabel;
+
+  /// No description provided for @meetupDetailNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetup not found.'**
+  String get meetupDetailNotFound;
+
+  /// No description provided for @meetupListJoinedBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined'**
+  String get meetupListJoinedBadge;
+
+  /// No description provided for @meetupListHostingBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosting'**
+  String get meetupListHostingBadge;
+
+  /// No description provided for @toastMeetupCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetup created'**
+  String get toastMeetupCreated;
+
+  /// No description provided for @toastMeetupJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'You joined the meetup'**
+  String get toastMeetupJoined;
+
+  /// No description provided for @toastMeetupLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'You left the meetup'**
+  String get toastMeetupLeft;
+
+  /// No description provided for @toastMeetupCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Meetup canceled'**
+  String get toastMeetupCanceled;
 }
 
 class _AppLocalizationsDelegate

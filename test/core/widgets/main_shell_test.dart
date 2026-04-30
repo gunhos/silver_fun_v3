@@ -42,6 +42,10 @@ Widget _harness({
             builder: (_, _) => const Scaffold(body: Text('liked-body')),
           ),
           GoRoute(
+            path: '/app/meetups',
+            builder: (_, _) => const Scaffold(body: Text('meetups-body')),
+          ),
+          GoRoute(
             path: '/app/chats',
             builder: (_, _) => const Scaffold(body: Text('chats-body')),
           ),
@@ -69,7 +73,7 @@ Widget _harness({
 }
 
 void main() {
-  testWidgets('MainShell renders four navigation destinations',
+  testWidgets('MainShell renders five navigation destinations',
       (tester) async {
     await tester.pumpWidget(_harness());
     await tester.pumpAndSettle();
@@ -77,6 +81,7 @@ void main() {
     expect(find.byType(NavigationBar), findsOneWidget);
     expect(find.text('Discover'), findsOneWidget);
     expect(find.text('Liked you'), findsOneWidget);
+    expect(find.text('Meetups'), findsOneWidget);
     expect(find.text('Chats'), findsOneWidget);
     expect(find.text('You'), findsOneWidget);
     expect(find.text('feed-body'), findsOneWidget);
@@ -88,8 +93,18 @@ void main() {
     await tester.pumpAndSettle();
 
     final nav = tester.widget<NavigationBar>(find.byType(NavigationBar));
-    expect(nav.selectedIndex, 2);
+    expect(nav.selectedIndex, 3);
     expect(find.text('chats-body'), findsOneWidget);
+  });
+
+  testWidgets('MainShell selects Meetups tab when on /app/meetups',
+      (tester) async {
+    await tester.pumpWidget(_harness(initialLocation: '/app/meetups'));
+    await tester.pumpAndSettle();
+
+    final nav = tester.widget<NavigationBar>(find.byType(NavigationBar));
+    expect(nav.selectedIndex, 2);
+    expect(find.text('meetups-body'), findsOneWidget);
   });
 
   testWidgets('MainShell shows Liked You badge when likers present',

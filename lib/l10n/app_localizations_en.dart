@@ -405,4 +405,118 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get interestPlants => 'Plants';
+
+  @override
+  String get navMeetups => 'Meetups';
+
+  @override
+  String get meetupsTitle => 'Meetups';
+
+  @override
+  String get meetupsCreateButton => 'Create meetup';
+
+  @override
+  String get meetupsEmptyTitle => 'No upcoming meetups.';
+
+  @override
+  String get meetupsEmptySubtitle => 'Be the first to plan one!';
+
+  @override
+  String get meetupsErrorPrefix => 'Could not load meetups.';
+
+  @override
+  String get meetupCreateTitle => 'New meetup';
+
+  @override
+  String get meetupFieldTitle => 'Title';
+
+  @override
+  String get meetupFieldDescription => 'Description';
+
+  @override
+  String get meetupFieldDateTime => 'Date and time';
+
+  @override
+  String get meetupFieldLocation => 'Location';
+
+  @override
+  String get meetupFieldMaxAttendees => 'Maximum attendees (optional)';
+
+  @override
+  String get meetupCreateSave => 'Create meetup';
+
+  @override
+  String get meetupCreateError => 'Could not create meetup. Please try again.';
+
+  @override
+  String get meetupValidationTitleRequired => 'Please enter a title.';
+
+  @override
+  String get meetupValidationDateRequired => 'Please pick a date and time.';
+
+  @override
+  String get meetupValidationDateInPast => 'Pick a future date and time.';
+
+  @override
+  String get meetupValidationLocationRequired => 'Please add a location.';
+
+  @override
+  String get meetupValidationMaxAttendeesPositive => 'Must be 1 or more.';
+
+  @override
+  String get meetupDetailTitle => 'Meetup';
+
+  @override
+  String meetupDetailHostedBy(String name) {
+    return 'Hosted by $name';
+  }
+
+  @override
+  String get meetupDetailHostedByYou => 'You\'re hosting';
+
+  @override
+  String meetupDetailJoined(int count) {
+    return '$count joined';
+  }
+
+  @override
+  String meetupDetailJoinedWithCapacity(int count, int max) {
+    return '$count of $max joined';
+  }
+
+  @override
+  String get meetupDetailJoinButton => 'Join';
+
+  @override
+  String get meetupDetailLeaveButton => 'Leave';
+
+  @override
+  String get meetupDetailCancelButton => 'Cancel meetup';
+
+  @override
+  String get meetupDetailCanceledLabel => 'Canceled';
+
+  @override
+  String get meetupDetailFullLabel => 'Meetup full';
+
+  @override
+  String get meetupDetailNotFound => 'Meetup not found.';
+
+  @override
+  String get meetupListJoinedBadge => 'Joined';
+
+  @override
+  String get meetupListHostingBadge => 'Hosting';
+
+  @override
+  String get toastMeetupCreated => 'Meetup created';
+
+  @override
+  String get toastMeetupJoined => 'You joined the meetup';
+
+  @override
+  String get toastMeetupLeft => 'You left the meetup';
+
+  @override
+  String get toastMeetupCanceled => 'Meetup canceled';
 }

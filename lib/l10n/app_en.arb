@@ -170,5 +170,60 @@
   "interestGrandkids": "Grandkids",
   "interestDogs": "Dogs",
   "interestCats": "Cats",
-  "interestPlants": "Plants"
+  "interestPlants": "Plants",
+
+  "navMeetups": "Meetups",
+
+  "meetupsTitle": "Meetups",
+  "meetupsCreateButton": "Create meetup",
+  "meetupsEmptyTitle": "No upcoming meetups.",
+  "meetupsEmptySubtitle": "Be the first to plan one!",
+  "meetupsErrorPrefix": "Could not load meetups.",
+
+  "meetupCreateTitle": "New meetup",
+  "meetupFieldTitle": "Title",
+  "meetupFieldDescription": "Description",
+  "meetupFieldDateTime": "Date and time",
+  "meetupFieldLocation": "Location",
+  "meetupFieldMaxAttendees": "Maximum attendees (optional)",
+  "meetupCreateSave": "Create meetup",
+  "meetupCreateError": "Could not create meetup. Please try again.",
+
+  "meetupValidationTitleRequired": "Please enter a title.",
+  "meetupValidationDateRequired": "Please pick a date and time.",
+  "meetupValidationDateInPast": "Pick a future date and time.",
+  "meetupValidationLocationRequired": "Please add a location.",
+  "meetupValidationMaxAttendeesPositive": "Must be 1 or more.",
+
+  "meetupDetailTitle": "Meetup",
+  "meetupDetailHostedBy": "Hosted by {name}",
+  "@meetupDetailHostedBy": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "meetupDetailHostedByYou": "You're hosting",
+  "meetupDetailJoined": "{count} joined",
+  "@meetupDetailJoined": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "meetupDetailJoinedWithCapacity": "{count} of {max} joined",
+  "@meetupDetailJoinedWithCapacity": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "meetupDetailJoinButton": "Join",
+  "meetupDetailLeaveButton": "Leave",
+  "meetupDetailCancelButton": "Cancel meetup",
+  "meetupDetailCanceledLabel": "Canceled",
+  "meetupDetailFullLabel": "Meetup full",
+  "meetupDetailNotFound": "Meetup not found.",
+
+  "meetupListJoinedBadge": "Joined",
+  "meetupListHostingBadge": "Hosting",
+
+  "toastMeetupCreated": "Meetup created",
+  "toastMeetupJoined": "You joined the meetup",
+  "toastMeetupLeft": "You left the meetup",
+  "toastMeetupCanceled": "Meetup canceled"
 }
