@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/photo_widget.dart';
+import '../../../l10n/app_localizations.dart';
 import '../models/match_thread.dart';
 import '../providers/chats_provider.dart';
 
@@ -13,12 +15,13 @@ class ChatListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final threadsAsync = ref.watch(matchThreadsProvider);
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
         title: Text(
-          'Chats',
+          l.chatsTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -28,7 +31,7 @@ class ChatListScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              'Could not load chats.\n$e',
+              '${l.chatsErrorPrefix}\n$e',
               textAlign: TextAlign.center,
               style: const TextStyle(color: AppColors.muted),
             ),
@@ -192,7 +195,7 @@ class _ThreadRow extends StatelessWidget {
                         if (last?.sentAt != null) ...[
                           const SizedBox(width: 8),
                           Text(
-                            _formatTime(last!.sentAt!),
+                            _formatTime(context, last!.sentAt!),
                             style: text.bodySmall
                                 ?.copyWith(color: AppColors.muted),
                           ),
@@ -259,19 +262,20 @@ class _NoConversationsHint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       child: Column(
         children: [
           Text(
-            'Say hello to a new connection',
+            l.chatsHintTitle,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Tap a friend above to start a conversation.',
+          Text(
+            l.chatsHintSubtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.muted),
+            style: const TextStyle(color: AppColors.muted),
           ),
         ],
       ),
@@ -284,6 +288,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -291,14 +296,14 @@ class _EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'No connections yet.',
+              l.chatsEmptyTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'When you and someone like each other, you can chat here.',
+            Text(
+              l.chatsEmptySubtitle,
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.muted),
+              style: const TextStyle(color: AppColors.muted),
             ),
           ],
         ),
@@ -307,12 +312,13 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-String _formatTime(DateTime sentAt) {
+String _formatTime(BuildContext context, DateTime sentAt) {
+  final l = AppLocalizations.of(context);
   final now = DateTime.now();
   final diff = now.difference(sentAt);
-  if (diff.inMinutes < 1) return 'now';
-  if (diff.inMinutes < 60) return '${diff.inMinutes}m';
-  if (diff.inHours < 24) return '${diff.inHours}h';
-  if (diff.inDays < 7) return '${diff.inDays}d';
+  if (diff.inMinutes < 1) return l.chatsTimeNow;
+  if (diff.inMinutes < 60) return l.chatsTimeMinutes(diff.inMinutes);
+  if (diff.inHours < 24) return l.chatsTimeHours(diff.inHours);
+  if (diff.inDays < 7) return l.chatsTimeDays(diff.inDays);
   return '${sentAt.month}/${sentAt.day}';
 }

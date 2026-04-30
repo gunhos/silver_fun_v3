@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/photo_widget.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../models/chat_message.dart';
 import '../../../models/user_profile.dart';
 import '../../auth/providers/auth_provider.dart';
@@ -125,7 +127,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Text(
-                      'Could not load messages.\n$e',
+                      '${context.l10n.chatMessagesErrorPrefix}\n$e',
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: AppColors.muted),
                     ),
@@ -160,6 +162,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final profile = profileAsync.valueOrNull;
     final name = profile?.name ?? '';
+    final l = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 4, 12, 8),
@@ -189,16 +192,16 @@ class _Header extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  name.isEmpty ? 'Friend' : name,
+                  name.isEmpty ? l.chatHeaderFallbackName : name,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const Text(
-                  'Connected',
-                  style: TextStyle(color: AppColors.muted, fontSize: 12),
+                Text(
+                  l.chatHeaderConnected,
+                  style: const TextStyle(color: AppColors.muted, fontSize: 12),
                 ),
               ],
             ),
@@ -258,6 +261,7 @@ class _MatchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = profile?.name ?? '';
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -283,7 +287,7 @@ class _MatchCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "You're now connected! 🎉",
+                  l.chatMatchCardTitle,
                   style: text.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -291,8 +295,8 @@ class _MatchCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   name.isEmpty
-                      ? 'Say hello to start chatting.'
-                      : 'Say hello to $name to start chatting.',
+                      ? l.chatMatchCardHelloGeneric
+                      : l.chatMatchCardHelloNamed(name),
                   style: text.bodySmall?.copyWith(color: AppColors.muted),
                 ),
                 const SizedBox(height: 10),
@@ -307,7 +311,7 @@ class _MatchCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                        'Stay safe — never share personal info, passwords, or money.',
+                        l.chatSafetyReminder,
                         style:
                             text.bodySmall?.copyWith(color: AppColors.muted),
                       ),
@@ -425,14 +429,14 @@ class _SendBar extends StatelessWidget {
                   maxLines: 4,
                   textInputAction: TextInputAction.send,
                   onSubmitted: (_) => onSend(),
-                  decoration: const InputDecoration(
-                    hintText: 'Message',
-                    hintStyle: TextStyle(color: AppColors.muted),
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).chatComposerHint,
+                    hintStyle: const TextStyle(color: AppColors.muted),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     isCollapsed: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 14),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14),
                   ),
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(500),

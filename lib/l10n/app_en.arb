@@ -1,0 +1,174 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Silvers Fun",
+  "@appTitle": { "description": "Brand name. Always English." },
+
+  "loadingTitle": "Loading",
+  "stubComingSoon": "{title} — coming soon",
+  "@stubComingSoon": {
+    "placeholders": { "title": { "type": "String" } }
+  },
+
+  "navDiscover": "Discover",
+  "navLikedYou": "Liked you",
+  "navChats": "Chats",
+  "navYou": "You",
+
+  "signInTagline": "Friendly company for the next chapter.",
+  "signInButton": "Continue with Google",
+  "signInButtonBusy": "Signing in…",
+  "signInError": "Sign-in failed. Please try again.",
+  "signInTermsNote": "By continuing you agree to our Terms.",
+
+  "onbNameTitle": "What's your name?",
+  "onbNameSubtitle": "This is what people will see on your profile.",
+  "onbFirstNameLabel": "First name",
+  "onbAgeLabel": "Age",
+  "onbAgeHelper": "Designed for adults 65+. You must be 18 or older to create an account.",
+
+  "onbPhotoTitle": "Add a photo",
+  "onbPhotoSubtitle": "Pick a clear, recent photo of you.",
+  "onbPhotoChoose": "Choose from gallery",
+  "onbPhotoReplace": "Replace photo",
+  "onbPhotoUploading": "Uploading…",
+  "onbPhotoErrorOpen": "Could not open gallery.",
+  "onbPhotoErrorUpload": "Upload failed. Please try again.",
+
+  "onbBioTitle": "Write a short bio",
+  "onbBioSubtitle": "A sentence or two about you. Keep it light.",
+  "onbBioHint": "I love early morning coffee, hiking on weekends…",
+
+  "onbInterestsTitle": "Pick your interests",
+  "onbInterestsSubtitle": "Choose 3 to 6 things you love.",
+  "onbInterestsCounter": "{count} / 6 selected",
+  "@onbInterestsCounter": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "onbPreviewTitle": "Preview your profile",
+  "onbPreviewSubtitle": "This is how others will see you.",
+  "onbPreviewPublishError": "Publish failed. Please try again.",
+  "onbPreviewPublishing": "Publishing…",
+  "onbPreviewPublish": "Publish",
+
+  "actionContinue": "Continue",
+  "actionSave": "Save",
+  "actionSaving": "Saving…",
+  "actionEdit": "Edit",
+  "actionBack": "Back",
+
+  "feedEmptyTitle": "No one to discover yet.",
+  "feedEmptySubtitle": "Check back soon — new profiles are on the way.",
+  "feedErrorPrefix": "Could not load feed.",
+
+  "profileViewNotFound": "Profile not found.",
+  "profileViewLike": "Like",
+  "profileViewLiked": "Liked",
+
+  "likedYouTitle": "Liked you",
+  "likedYouEmptyTitle": "No one yet.",
+  "likedYouEmptySubtitle": "When someone likes you, they will show up here.",
+  "likedYouErrorPrefix": "Could not load likes.",
+
+  "chatsTitle": "Chats",
+  "chatsErrorPrefix": "Could not load chats.",
+  "chatsHintTitle": "Say hello to a new connection",
+  "chatsHintSubtitle": "Tap a friend above to start a conversation.",
+  "chatsEmptyTitle": "No connections yet.",
+  "chatsEmptySubtitle": "When you and someone like each other, you can chat here.",
+  "chatsTimeNow": "now",
+  "chatsTimeMinutes": "{n}m",
+  "@chatsTimeMinutes": { "placeholders": { "n": { "type": "int" } } },
+  "chatsTimeHours": "{n}h",
+  "@chatsTimeHours": { "placeholders": { "n": { "type": "int" } } },
+  "chatsTimeDays": "{n}d",
+  "@chatsTimeDays": { "placeholders": { "n": { "type": "int" } } },
+
+  "chatHeaderFallbackName": "Friend",
+  "chatHeaderConnected": "Connected",
+  "chatMessagesErrorPrefix": "Could not load messages.",
+  "chatComposerHint": "Message",
+  "chatMatchCardTitle": "You're now connected! 🎉",
+  "chatMatchCardHelloGeneric": "Say hello to start chatting.",
+  "chatMatchCardHelloNamed": "Say hello to {name} to start chatting.",
+  "@chatMatchCardHelloNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "chatSafetyReminder": "Stay safe — never share personal info, passwords, or money.",
+
+  "youTitle": "You",
+  "youSettingsTooltip": "Settings",
+  "youErrorPrefix": "Could not load your profile.",
+  "youStatusNotPublished": "Not published",
+  "youStatusPaused": "Profile paused",
+  "youStatusLive": "Profile live",
+  "youPreviewProfile": "Preview profile",
+  "youEditBio": "Edit bio",
+  "youEmptyMessage": "Your profile is not ready yet.",
+
+  "settingsTitle": "Settings",
+  "settingsSectionProfile": "Profile",
+  "settingsPauseProfile": "Pause profile",
+  "settingsPauseSubtitlePaused": "Hidden from the discover feed.",
+  "settingsPauseSubtitleLive": "Visible in the discover feed.",
+  "settingsEditPhoto": "Edit profile photo",
+  "settingsWhoCanSeeMe": "Who can see me",
+  "settingsWhoCanSeeMeValue": "Everyone",
+  "settingsSectionNotifications": "Notifications",
+  "settingsNotifLikes": "New likes",
+  "settingsNotifDigest": "Weekly digest",
+  "settingsSectionAccount": "Account",
+  "settingsAccountGoogle": "Connected with Google",
+  "settingsAccountPrivacy": "Privacy",
+  "settingsAccountHelp": "Help",
+  "settingsSignOut": "Sign out",
+
+  "editBioTitle": "Edit bio",
+
+  "toastProfilePaused": "Profile paused",
+  "toastProfileLive": "Profile live",
+  "toastLikedGeneric": "Liked",
+  "toastLikedNamed": "Liked {name}",
+  "@toastLikedNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "toastConnectedGeneric": "You're now connected! 🎉",
+  "toastConnectedNamed": "You and {name} are now connected! 🎉",
+  "@toastConnectedNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+
+  "profileNameAge": "{name}, {age}",
+  "@profileNameAge": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "age": { "type": "int" }
+    }
+  },
+
+  "interestGardening": "Gardening",
+  "interestWalking": "Walking",
+  "interestCooking": "Cooking",
+  "interestBaking": "Baking",
+  "interestCoffee": "Coffee",
+  "interestTravel": "Travel",
+  "interestReading": "Reading",
+  "interestPhotography": "Photography",
+  "interestYoga": "Yoga",
+  "interestBirdWatching": "Bird watching",
+  "interestCrafts": "Crafts",
+  "interestKnitting": "Knitting",
+  "interestBoardGames": "Board games",
+  "interestCardsAndBridge": "Cards & bridge",
+  "interestMovies": "Movies",
+  "interestTheatre": "Theatre",
+  "interestArt": "Art",
+  "interestLiveMusic": "Live music",
+  "interestDancing": "Dancing",
+  "interestVolunteering": "Volunteering",
+  "interestGrandkids": "Grandkids",
+  "interestDogs": "Dogs",
+  "interestCats": "Cats",
+  "interestPlants": "Plants"
+}

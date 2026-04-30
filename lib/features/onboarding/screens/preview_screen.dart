@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/i18n/interest_label.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/chip_tag.dart';
 import '../../../core/widgets/photo_widget.dart';
+import '../../../l10n/app_localizations.dart';
 import '../notifiers/onboarding_form_notifier.dart';
 import '../repository/onboarding_repository.dart';
 
@@ -23,6 +26,7 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
   String? _error;
 
   Future<void> _onPublish() async {
+    final l = AppLocalizations.of(context);
     final form = ref.read(onboardingFormProvider);
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -42,7 +46,7 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
       context.go('/app/feed');
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = 'Publish failed. Please try again.');
+      setState(() => _error = l.onbPreviewPublishError);
     } finally {
       if (mounted) setState(() => _publishing = false);
     }
@@ -52,6 +56,7 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
   Widget build(BuildContext context) {
     final form = ref.watch(onboardingFormProvider);
     final text = Theme.of(context).textTheme;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -62,14 +67,14 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Preview your profile',
+                l.onbPreviewTitle,
                 style: text.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 6),
               Text(
-                "This is how others will see you.",
+                l.onbPreviewSubtitle,
                 style: text.bodyMedium?.copyWith(color: AppColors.muted),
               ),
               const SizedBox(height: 20),
@@ -97,7 +102,7 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
                 children: [
                   Expanded(
                     child: Btn(
-                      label: 'Edit',
+                      label: l.actionEdit,
                       variant: BtnVariant.ghost,
                       onPressed: _publishing
                           ? null
@@ -107,7 +112,9 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Btn(
-                      label: _publishing ? 'Publishing…' : 'Publish',
+                      label: _publishing
+                          ? l.onbPreviewPublishing
+                          : l.onbPreviewPublish,
                       onPressed: _publishing ? null : _onPublish,
                     ),
                   ),
@@ -163,7 +170,9 @@ class _ProfileCardPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  age == null ? name : '$name, $age',
+                  age == null
+                      ? name
+                      : context.l10n.profileNameAge(name, age!),
                   style: text.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -180,7 +189,13 @@ class _ProfileCardPreview extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: interests
-                        .map((t) => ChipTag(label: t, size: ChipSize.sm))
+                        .map(
+                          (t) => ChipTag(
+                            label: AppLocalizations.of(context)
+                                .localizedInterest(t),
+                            size: ChipSize.sm,
+                          ),
+                        )
                         .toList(),
                   ),
                 ],

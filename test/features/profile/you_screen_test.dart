@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:silver_fun/features/profile/providers/my_profile_provider.dart';
 import 'package:silver_fun/features/profile/screens/you_screen.dart';
+import 'package:silver_fun/l10n/app_localizations.dart';
 import 'package:silver_fun/models/user_profile.dart';
 
 UserProfile _profile({bool paused = false, bool published = true}) {
@@ -26,7 +27,12 @@ void main() {
         overrides: [
           myProfileProvider.overrideWith((ref) => Stream.value(_profile())),
         ],
-        child: const MaterialApp(home: YouScreen()),
+        child: MaterialApp(
+          home: const YouScreen(),
+          locale: const Locale('en'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -47,7 +53,12 @@ void main() {
           myProfileProvider
               .overrideWith((ref) => Stream.value(_profile(paused: true))),
         ],
-        child: const MaterialApp(home: YouScreen()),
+        child: MaterialApp(
+          home: const YouScreen(),
+          locale: const Locale('en'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
     await tester.pumpAndSettle();

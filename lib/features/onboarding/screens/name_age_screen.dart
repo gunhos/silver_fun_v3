@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/step_bar.dart';
@@ -63,6 +64,7 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
     final form = ref.watch(onboardingFormProvider);
     final notifier = ref.read(onboardingFormProvider.notifier);
     final text = Theme.of(context).textTheme;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -81,14 +83,14 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
                         const StepBar(step: 0),
                         const SizedBox(height: 28),
                         Text(
-                          "What's your name?",
+                          l.onbNameTitle,
                           style: text.headlineMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'This is what people will see on your profile.',
+                          l.onbNameSubtitle,
                           style: text.bodyMedium
                               ?.copyWith(color: AppColors.muted),
                         ),
@@ -97,8 +99,8 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
                           controller: _name,
                           textCapitalization: TextCapitalization.words,
                           onChanged: notifier.updateName,
-                          decoration: const InputDecoration(
-                            labelText: 'First name',
+                          decoration: InputDecoration(
+                            labelText: l.onbFirstNameLabel,
                           ),
                           style: text.titleLarge,
                         ),
@@ -112,21 +114,21 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
                           ],
                           onChanged: (v) =>
                               notifier.updateAge(int.tryParse(v)),
-                          decoration: const InputDecoration(
-                            labelText: 'Age',
+                          decoration: InputDecoration(
+                            labelText: l.onbAgeLabel,
                           ),
                           style: text.titleLarge,
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Designed for adults 65+. You must be 18 or older to create an account.',
+                          l.onbAgeHelper,
                           style: text.bodySmall
                               ?.copyWith(color: AppColors.muted),
                         ),
                         const Spacer(),
                         const SizedBox(height: 16),
                         Btn(
-                          label: _saving ? 'Saving…' : 'Continue',
+                          label: _saving ? l.actionSaving : l.actionContinue,
                           onPressed: form.isNameAgeValid && !_saving
                               ? _onContinue
                               : null,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/providers/toast_provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../providers/my_profile_provider.dart';
 
@@ -18,6 +20,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _busy = false;
 
   Future<void> _onTogglePause(bool nextValue) async {
+    final l = AppLocalizations.of(context);
     final user = ref.read(authProvider).valueOrNull;
     if (user == null || _busy) return;
 
@@ -27,7 +30,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           .read(profileRepositoryProvider)
           .updateField(user.uid, 'profilePaused', nextValue);
       if (!mounted) return;
-      showToast(ref, nextValue ? 'Profile paused' : 'Profile live');
+      showToast(ref, nextValue ? l.toastProfilePaused : l.toastProfileLive);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -49,12 +52,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final profile = ref.watch(myProfileProvider).valueOrNull;
     final paused = profile?.profilePaused ?? false;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
         title: Text(
-          'Settings',
+          l.settingsTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -63,63 +67,78 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           children: [
-            _SectionTitle('Profile'),
+            _SectionTitle(l.settingsSectionProfile),
             _SettingsCard(
               children: [
                 SwitchListTile.adaptive(
                   value: paused,
                   onChanged: _busy ? null : _onTogglePause,
-                  title: const Text('Pause profile'),
+                  title: Text(l.settingsPauseProfile),
                   subtitle: Text(
                     paused
-                        ? 'Hidden from the discover feed.'
-                        : 'Visible in the discover feed.',
+                        ? l.settingsPauseSubtitlePaused
+                        : l.settingsPauseSubtitleLive,
                     style: const TextStyle(color: AppColors.muted),
                   ),
                   activeThumbColor: AppColors.accent,
                 ),
                 const _DividerRow(),
-                const ListTile(
-                  title: Text('Edit profile photo'),
-                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                ListTile(
+                  title: Text(l.settingsEditPhoto),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.muted,
+                  ),
                 ),
                 const _DividerRow(),
-                const ListTile(
-                  title: Text('Who can see me'),
+                ListTile(
+                  title: Text(l.settingsWhoCanSeeMe),
                   subtitle: Text(
-                    'Everyone',
-                    style: TextStyle(color: AppColors.muted),
+                    l.settingsWhoCanSeeMeValue,
+                    style: const TextStyle(color: AppColors.muted),
                   ),
-                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.muted,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            _SectionTitle('Notifications'),
+            _SectionTitle(l.settingsSectionNotifications),
             _SettingsCard(
-              children: const [
-                _UiOnlyToggleRow(label: 'New likes'),
-                _DividerRow(),
-                _UiOnlyToggleRow(label: 'Weekly digest', initial: false),
+              children: [
+                _UiOnlyToggleRow(label: l.settingsNotifLikes),
+                const _DividerRow(),
+                _UiOnlyToggleRow(
+                  label: l.settingsNotifDigest,
+                  initial: false,
+                ),
               ],
             ),
             const SizedBox(height: 20),
-            _SectionTitle('Account'),
+            _SectionTitle(l.settingsSectionAccount),
             _SettingsCard(
-              children: const [
+              children: [
                 ListTile(
-                  title: Text('Connected with Google'),
-                  trailing: Icon(Icons.check, color: AppColors.muted),
+                  title: Text(l.settingsAccountGoogle),
+                  trailing: const Icon(Icons.check, color: AppColors.muted),
                 ),
-                _DividerRow(),
+                const _DividerRow(),
                 ListTile(
-                  title: Text('Privacy'),
-                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                  title: Text(l.settingsAccountPrivacy),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.muted,
+                  ),
                 ),
-                _DividerRow(),
+                const _DividerRow(),
                 ListTile(
-                  title: Text('Help'),
-                  trailing: Icon(Icons.chevron_right, color: AppColors.muted),
+                  title: Text(l.settingsAccountHelp),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.muted,
+                  ),
                 ),
               ],
             ),
@@ -217,6 +236,7 @@ class _SignOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,
@@ -229,7 +249,7 @@ class _SignOutButton extends StatelessWidget {
           border: Border.all(color: AppColors.line, width: 1.5),
         ),
         child: Text(
-          'Sign out',
+          l.settingsSignOut,
           style: TextStyle(
             color: onPressed == null ? AppColors.muted : AppColors.accent,
             fontWeight: FontWeight.w600,

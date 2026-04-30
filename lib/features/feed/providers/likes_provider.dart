@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/providers/toast_provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../profile/providers/my_profile_provider.dart';
 import '../repository/likes_repository.dart';
@@ -26,14 +25,25 @@ final likedByOthersProvider = StreamProvider<Set<String>>((ref) {
   return ref.watch(likesRepositoryProvider).watchLikedByOthers(auth.uid);
 });
 
+enum LikeOutcomeKind { unliked, liked, connected }
+
+class LikeOutcome {
+  final LikeOutcomeKind kind;
+  final String partnerName;
+
+  const LikeOutcome(this.kind, this.partnerName);
+}
+
 class LikesController {
   final Ref _ref;
 
   LikesController(this._ref);
 
-  Future<void> toggleLike(String targetUid) async {
+  Future<LikeOutcome> toggleLike(String targetUid) async {
     final user = _ref.read(authProvider).valueOrNull;
-    if (user == null || user.uid == targetUid) return;
+    if (user == null || user.uid == targetUid) {
+      return const LikeOutcome(LikeOutcomeKind.unliked, '');
+    }
 
     final repo = _ref.read(likesRepositoryProvider);
     final liked =
@@ -42,7 +52,7 @@ class LikesController {
 
     if (isLiked) {
       await repo.unlike(user.uid, targetUid);
-      return;
+      return const LikeOutcome(LikeOutcomeKind.unliked, '');
     }
 
     await repo.like(user.uid, targetUid);
@@ -56,16 +66,10 @@ class LikesController {
         await _ref.read(feedRepositoryProvider).getUser(targetUid);
     final name = profile?.name ?? '';
 
-    if (mutual) {
-      showToastFromRef(
-        _ref,
-        name.isEmpty
-            ? "You're now connected! 🎉"
-            : "You and $name are now connected! 🎉",
-      );
-    } else {
-      showToastFromRef(_ref, name.isEmpty ? 'Liked' : 'Liked $name');
-    }
+    return LikeOutcome(
+      mutual ? LikeOutcomeKind.connected : LikeOutcomeKind.liked,
+      name,
+    );
   }
 }
 

@@ -18,6 +18,7 @@ import '../../features/profile/providers/my_profile_provider.dart';
 import '../../features/profile/screens/liked_you_screen.dart';
 import '../../features/profile/screens/settings_screen.dart';
 import '../../features/profile/screens/you_screen.dart';
+import '../../l10n/app_localizations.dart';
 import '../widgets/main_shell.dart';
 import '../widgets/stub_screen.dart';
 
@@ -67,7 +68,11 @@ final routerProvider = Provider<GoRouter>((ref) {
     refreshListenable: notifier,
     redirect: notifier.redirect,
     routes: [
-      GoRoute(path: '/', builder: (_, _) => const StubScreen(title: 'Loading')),
+      GoRoute(
+        path: '/',
+        builder: (context, _) =>
+            StubScreen(title: AppLocalizations.of(context).loadingTitle),
+      ),
       GoRoute(path: '/signin', builder: (_, _) => const SignInScreen()),
       GoRoute(
         path: '/onboarding/name',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/photo_widget.dart';
 import '../../../models/user_profile.dart';
@@ -14,12 +15,13 @@ class LikedYouScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final likersAsync = ref.watch(likedByOthersProvider);
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
         title: Text(
-          'Liked you',
+          l.likedYouTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -29,7 +31,7 @@ class LikedYouScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              'Could not load likes.\n$e',
+              '${l.likedYouErrorPrefix}\n$e',
               textAlign: TextAlign.center,
               style: const TextStyle(color: AppColors.muted),
             ),
@@ -88,7 +90,7 @@ class _LikerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final title = profile.age > 0
-        ? '${profile.name}, ${profile.age}'
+        ? context.l10n.profileNameAge(profile.name, profile.age)
         : profile.name;
     final snippet = profile.bio.isEmpty
         ? (profile.city.isEmpty ? '' : profile.city)
@@ -170,6 +172,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -177,14 +180,14 @@ class _EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'No one yet.',
+              l.likedYouEmptyTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'When someone likes you, they will show up here.',
+            Text(
+              l.likedYouEmptySubtitle,
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.muted),
+              style: const TextStyle(color: AppColors.muted),
             ),
           ],
         ),

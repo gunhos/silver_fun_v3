@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/i18n/interest_label.dart';
+import '../../../core/providers/toast_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/chip_tag.dart';
@@ -17,12 +20,13 @@ class FeedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final feed = ref.watch(feedProvider);
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
         title: Text(
-          'Discover',
+          l.navDiscover,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -32,7 +36,7 @@ class FeedScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              'Could not load feed.\n$e',
+              '${l.feedErrorPrefix}\n$e',
               textAlign: TextAlign.center,
               style: const TextStyle(color: AppColors.muted),
             ),
@@ -57,8 +61,37 @@ class FeedScreen extends ConsumerWidget {
                 key: ValueKey(profile.uid),
                 profile: profile,
                 onTap: () => context.push('/profile/${profile.uid}'),
-                onLike: () =>
-                    ref.read(likesControllerProvider).toggleLike(profile.uid),
+                onLike: () {
+                  final l10n = context.l10n;
+                  ref
+                      .read(likesControllerProvider)
+                      .toggleLike(profile.uid)
+                      .then((outcome) {
+                    if (!context.mounted) return;
+                    switch (outcome.kind) {
+                      case LikeOutcomeKind.connected:
+                        showToast(
+                          ref,
+                          outcome.partnerName.isEmpty
+                              ? l10n.toastConnectedGeneric
+                              : l10n.toastConnectedNamed(
+                                  outcome.partnerName,
+                                ),
+                        );
+                        break;
+                      case LikeOutcomeKind.liked:
+                        showToast(
+                          ref,
+                          outcome.partnerName.isEmpty
+                              ? l10n.toastLikedGeneric
+                              : l10n.toastLikedNamed(outcome.partnerName),
+                        );
+                        break;
+                      case LikeOutcomeKind.unliked:
+                        break;
+                    }
+                  });
+                },
               );
             },
           );
@@ -122,7 +155,7 @@ class _ProfileCard extends StatelessWidget {
                 children: [
                   Text(
                     profile.age > 0
-                        ? '${profile.name}, ${profile.age}'
+                        ? context.l10n.profileNameAge(profile.name, profile.age)
                         : profile.name,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
@@ -155,7 +188,11 @@ class _ProfileCard extends StatelessWidget {
                             children: [
                               for (var i = 0; i < chips.length; i++) ...[
                                 if (i > 0) const SizedBox(width: 6),
-                                ChipTag(label: chips[i], size: ChipSize.sm),
+                                ChipTag(
+                                  label: context.l10n
+                                      .localizedInterest(chips[i]),
+                                  size: ChipSize.sm,
+                                ),
                               ],
                             ],
                           ),
@@ -178,6 +215,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -185,14 +223,14 @@ class _EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'No one to discover yet.',
+              l.feedEmptyTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Check back soon — new profiles are on the way.',
+            Text(
+              l.feedEmptySubtitle,
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.muted),
+              style: const TextStyle(color: AppColors.muted),
             ),
           ],
         ),

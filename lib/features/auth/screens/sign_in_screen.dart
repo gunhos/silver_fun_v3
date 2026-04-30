@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
+import '../../../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -17,6 +19,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   String? _error;
 
   Future<void> _signIn() async {
+    final errorText = AppLocalizations.of(context).signInError;
     setState(() {
       _busy = true;
       _error = null;
@@ -26,7 +29,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       // Router redirect handles post-sign-in navigation.
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = 'Sign-in failed. Please try again.');
+      setState(() => _error = errorText);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -35,6 +38,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -47,7 +51,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               const _Logo(),
               const SizedBox(height: 28),
               Text(
-                'Silvers Fun',
+                l.appTitle,
                 style: text.displayMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.ink,
@@ -55,7 +59,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Friendly company for the next chapter.',
+                l.signInTagline,
                 textAlign: TextAlign.center,
                 style: text.bodyLarge?.copyWith(color: AppColors.muted),
               ),
@@ -68,13 +72,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 const SizedBox(height: 12),
               ],
               Btn(
-                label: _busy ? 'Signing in…' : 'Continue with Google',
+                label: _busy ? l.signInButtonBusy : l.signInButton,
                 onPressed: _busy ? null : _signIn,
                 leading: const _GoogleG(),
               ),
               const SizedBox(height: 16),
               Text(
-                'By continuing you agree to our Terms.',
+                l.signInTermsNote,
                 textAlign: TextAlign.center,
                 style: text.bodySmall?.copyWith(color: AppColors.muted),
               ),

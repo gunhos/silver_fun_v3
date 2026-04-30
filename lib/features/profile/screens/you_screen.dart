@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/i18n/interest_label.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/chip_tag.dart';
 import '../../../core/widgets/photo_widget.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../models/user_profile.dart';
 import '../providers/my_profile_provider.dart';
 
@@ -15,14 +18,16 @@ class YouScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(myProfileProvider);
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
-        title: Text('You', style: Theme.of(context).textTheme.headlineSmall),
+        title:
+            Text(l.youTitle, style: Theme.of(context).textTheme.headlineSmall),
         actions: [
           IconButton(
-            tooltip: 'Settings',
+            tooltip: l.youSettingsTooltip,
             icon: const Icon(Icons.settings_outlined, color: AppColors.ink),
             onPressed: () => context.push('/settings'),
           ),
@@ -34,7 +39,7 @@ class YouScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              'Could not load your profile.\n$e',
+              '${l.youErrorPrefix}\n$e',
               textAlign: TextAlign.center,
               style: const TextStyle(color: AppColors.muted),
             ),
@@ -59,12 +64,13 @@ class _YouBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final paused = profile.profilePaused;
     final published = profile.published;
 
     final statusLabel = !published
-        ? 'Not published'
-        : (paused ? 'Profile paused' : 'Profile live');
+        ? l.youStatusNotPublished
+        : (paused ? l.youStatusPaused : l.youStatusLive);
     final statusColor = !published || paused
         ? AppColors.muted
         : AppColors.accent;
@@ -87,7 +93,7 @@ class _YouBody extends StatelessWidget {
           Center(
             child: Text(
               profile.age > 0
-                  ? '${profile.name}, ${profile.age}'
+                  ? l.profileNameAge(profile.name, profile.age)
                   : profile.name,
               style: text.headlineSmall?.copyWith(fontWeight: FontWeight.w600),
             ),
@@ -134,13 +140,14 @@ class _YouBody extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: [
-                for (final c in profile.interests) ChipTag(label: c),
+                for (final c in profile.interests)
+                  ChipTag(label: l.localizedInterest(c)),
               ],
             ),
           ],
           const SizedBox(height: 28),
           Btn(
-            label: 'Preview profile',
+            label: l.youPreviewProfile,
             variant: BtnVariant.ghost,
             onPressed: published
                 ? () => context.push('/profile/${profile.uid}')
@@ -148,7 +155,7 @@ class _YouBody extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Btn(
-            label: 'Edit bio',
+            label: l.youEditBio,
             onPressed: () => context.push('/edit-bio'),
           ),
         ],
@@ -166,7 +173,7 @@ class _EmptyState extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Text(
-          'Your profile is not ready yet.',
+          context.l10n.youEmptyMessage,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.muted,

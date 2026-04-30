@@ -4,12 +4,15 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/chat/providers/chats_provider.dart';
 import '../../features/feed/providers/likes_provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import 'toast_overlay.dart';
 
+typedef _LabelFn = String Function(AppLocalizations l);
+
 class _TabSpec {
   final String location;
-  final String label;
+  final _LabelFn label;
   final IconData icon;
   final IconData selectedIcon;
 
@@ -21,28 +24,33 @@ class _TabSpec {
   });
 }
 
+String _labelDiscover(AppLocalizations l) => l.navDiscover;
+String _labelLikedYou(AppLocalizations l) => l.navLikedYou;
+String _labelChats(AppLocalizations l) => l.navChats;
+String _labelYou(AppLocalizations l) => l.navYou;
+
 const List<_TabSpec> _tabs = [
   _TabSpec(
     location: '/app/feed',
-    label: 'Discover',
+    label: _labelDiscover,
     icon: Icons.explore_outlined,
     selectedIcon: Icons.explore,
   ),
   _TabSpec(
     location: '/app/liked-you',
-    label: 'Liked you',
+    label: _labelLikedYou,
     icon: Icons.favorite_outline,
     selectedIcon: Icons.favorite,
   ),
   _TabSpec(
     location: '/app/chats',
-    label: 'Chats',
+    label: _labelChats,
     icon: Icons.chat_bubble_outline,
     selectedIcon: Icons.chat_bubble,
   ),
   _TabSpec(
     location: '/app/you',
-    label: 'You',
+    label: _labelYou,
     icon: Icons.person_outline,
     selectedIcon: Icons.person,
   ),
@@ -67,6 +75,7 @@ class MainShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = GoRouterState.of(context).matchedLocation;
     final selectedIndex = _selectedIndexFor(loc);
+    final l = AppLocalizations.of(context);
 
     final threads =
         ref.watch(matchThreadsProvider).valueOrNull ?? const [];
@@ -104,6 +113,7 @@ class MainShell extends ConsumerWidget {
                 badgeCount: i == 1
                     ? likedCount
                     : (i == 2 ? unreadTotal : 0),
+                l: l,
               ),
           ],
         ),
@@ -114,19 +124,21 @@ class MainShell extends ConsumerWidget {
   NavigationDestination _buildDestination(
     _TabSpec t, {
     required int badgeCount,
+    required AppLocalizations l,
   }) {
+    final label = t.label(l);
     if (badgeCount > 0) {
       return NavigationDestination(
         icon: Badge.count(count: badgeCount, child: Icon(t.icon)),
         selectedIcon:
             Badge.count(count: badgeCount, child: Icon(t.selectedIcon)),
-        label: t.label,
+        label: label,
       );
     }
     return NavigationDestination(
       icon: Icon(t.icon),
       selectedIcon: Icon(t.selectedIcon),
-      label: t.label,
+      label: label,
     );
   }
 }

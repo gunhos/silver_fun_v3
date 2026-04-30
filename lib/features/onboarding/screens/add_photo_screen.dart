@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/photo_widget.dart';
 import '../../../core/widgets/step_bar.dart';
+import '../../../l10n/app_localizations.dart';
 import '../notifiers/onboarding_form_notifier.dart';
 import '../repository/onboarding_repository.dart';
 
@@ -24,6 +26,7 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
   String? _error;
 
   Future<void> _pickAndUpload() async {
+    final l = AppLocalizations.of(context);
     final user = FirebaseAuth.instance.currentUser;
     if (user == null || _uploading) return;
 
@@ -31,7 +34,8 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
     try {
       file = await _picker.pickImage(source: ImageSource.gallery);
     } catch (e) {
-      setState(() => _error = 'Could not open gallery.');
+      if (!mounted) return;
+      setState(() => _error = l.onbPhotoErrorOpen);
       return;
     }
     if (file == null) return;
@@ -48,7 +52,7 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
       ref.read(onboardingFormProvider.notifier).updatePhotoUrl(url);
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = 'Upload failed. Please try again.');
+      setState(() => _error = l.onbPhotoErrorUpload);
     } finally {
       if (mounted) setState(() => _uploading = false);
     }
@@ -58,6 +62,7 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
   Widget build(BuildContext context) {
     final form = ref.watch(onboardingFormProvider);
     final text = Theme.of(context).textTheme;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -70,14 +75,14 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
               const StepBar(step: 1),
               const SizedBox(height: 28),
               Text(
-                'Add a photo',
+                l.onbPhotoTitle,
                 style: text.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 6),
               Text(
-                'Pick a clear, recent photo of you.',
+                l.onbPhotoSubtitle,
                 style: text.bodyMedium?.copyWith(color: AppColors.muted),
               ),
               const SizedBox(height: 32),
@@ -103,10 +108,10 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
                   onPressed: _uploading ? null : _pickAndUpload,
                   child: Text(
                     _uploading
-                        ? 'Uploading…'
+                        ? l.onbPhotoUploading
                         : (form.photoUrl.isEmpty
-                            ? 'Choose from gallery'
-                            : 'Replace photo'),
+                            ? l.onbPhotoChoose
+                            : l.onbPhotoReplace),
                     style: const TextStyle(
                       color: AppColors.accent,
                       fontWeight: FontWeight.w600,
@@ -125,7 +130,7 @@ class _AddPhotoScreenState extends ConsumerState<AddPhotoScreen> {
               ],
               const Spacer(),
               Btn(
-                label: 'Continue',
+                label: l.actionContinue,
                 onPressed: form.isPhotoValid && !_uploading
                     ? () => context.go('/onboarding/bio')
                     : null,

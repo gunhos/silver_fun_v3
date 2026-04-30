@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants.dart';
+import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/i18n/interest_label.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/chip_tag.dart';
@@ -45,6 +47,7 @@ class _InterestsScreenState extends ConsumerState<InterestsScreen> {
     final notifier = ref.read(onboardingFormProvider.notifier);
     final text = Theme.of(context).textTheme;
     final count = form.interests.length;
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -57,19 +60,19 @@ class _InterestsScreenState extends ConsumerState<InterestsScreen> {
               const StepBar(step: 3),
               const SizedBox(height: 28),
               Text(
-                'Pick your interests',
+                l.onbInterestsTitle,
                 style: text.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 6),
               Text(
-                'Choose 3 to 6 things you love.',
+                l.onbInterestsSubtitle,
                 style: text.bodyMedium?.copyWith(color: AppColors.muted),
               ),
               const SizedBox(height: 8),
               Text(
-                '$count / 6 selected',
+                l.onbInterestsCounter(count),
                 style: text.bodySmall?.copyWith(
                   color: form.isInterestsValid
                       ? AppColors.accent
@@ -86,7 +89,7 @@ class _InterestsScreenState extends ConsumerState<InterestsScreen> {
                     children: kInterestPool.map((tag) {
                       final selected = form.interests.contains(tag);
                       return ChipTag(
-                        label: tag,
+                        label: l.localizedInterest(tag),
                         selected: selected,
                         onTap: () => notifier.toggleInterest(tag),
                       );
@@ -96,7 +99,7 @@ class _InterestsScreenState extends ConsumerState<InterestsScreen> {
               ),
               const SizedBox(height: 16),
               Btn(
-                label: _saving ? 'Saving…' : 'Continue',
+                label: _saving ? l.actionSaving : l.actionContinue,
                 onPressed:
                     form.isInterestsValid && !_saving ? _onContinue : null,
               ),

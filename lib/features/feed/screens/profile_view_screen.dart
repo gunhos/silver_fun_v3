@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/i18n/interest_label.dart';
+import '../../../core/providers/toast_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/chip_tag.dart';
 import '../../../core/widgets/photo_widget.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../models/user_profile.dart';
 import '../providers/feed_provider.dart';
 import '../providers/likes_provider.dart';
@@ -20,6 +24,7 @@ class ProfileViewScreen extends ConsumerWidget {
     final profileAsync = ref.watch(userStreamProvider(userId));
     final likedSet = ref.watch(likedByMeProvider).valueOrNull ?? const <String>{};
     final isLiked = likedSet.contains(userId);
+    final l = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -28,7 +33,7 @@ class ProfileViewScreen extends ConsumerWidget {
         error: (e, _) => _ErrorBody(error: e),
         data: (profile) {
           if (profile == null) {
-            return const _ErrorBody(error: 'Profile not found.');
+            return _ErrorBody(error: l.profileViewNotFound);
           }
           return _ProfileBody(
             profile: profile,
@@ -40,8 +45,35 @@ class ProfileViewScreen extends ConsumerWidget {
                 context.go('/app/feed');
               }
             },
-            onToggleLike: () =>
-                ref.read(likesControllerProvider).toggleLike(profile.uid),
+            onToggleLike: () {
+              final l10n = l;
+              ref
+                  .read(likesControllerProvider)
+                  .toggleLike(profile.uid)
+                  .then((outcome) {
+                if (!context.mounted) return;
+                switch (outcome.kind) {
+                  case LikeOutcomeKind.connected:
+                    showToast(
+                      ref,
+                      outcome.partnerName.isEmpty
+                          ? l10n.toastConnectedGeneric
+                          : l10n.toastConnectedNamed(outcome.partnerName),
+                    );
+                    break;
+                  case LikeOutcomeKind.liked:
+                    showToast(
+                      ref,
+                      outcome.partnerName.isEmpty
+                          ? l10n.toastLikedGeneric
+                          : l10n.toastLikedNamed(outcome.partnerName),
+                    );
+                    break;
+                  case LikeOutcomeKind.unliked:
+                    break;
+                }
+              });
+            },
           );
         },
       ),
@@ -65,6 +97,7 @@ class _ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return SafeArea(
       child: Stack(
@@ -83,7 +116,7 @@ class _ProfileBody extends StatelessWidget {
                   children: [
                     Text(
                       profile.age > 0
-                          ? '${profile.name}, ${profile.age}'
+                          ? l.profileNameAge(profile.name, profile.age)
                           : profile.name,
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
@@ -115,7 +148,7 @@ class _ProfileBody extends StatelessWidget {
                         runSpacing: 8,
                         children: [
                           for (final c in profile.interests)
-                            ChipTag(label: c),
+                            ChipTag(label: l.localizedInterest(c)),
                         ],
                       ),
                     ],
@@ -137,7 +170,7 @@ class _ProfileBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: Btn(
-                    label: 'Back',
+                    label: l.actionBack,
                     variant: BtnVariant.ghost,
                     onPressed: onBack,
                   ),
@@ -146,7 +179,7 @@ class _ProfileBody extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Btn(
-                    label: isLiked ? 'Liked' : 'Like',
+                    label: isLiked ? l.profileViewLiked : l.profileViewLike,
                     variant:
                         isLiked ? BtnVariant.dark : BtnVariant.primary,
                     onPressed: onToggleLike,

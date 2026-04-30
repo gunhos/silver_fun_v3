@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/l10n_extension.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/step_bar.dart';
@@ -78,6 +79,7 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
+    final l = context.l10n;
 
     if (widget.standalone) {
       final value = _bio.text;
@@ -85,12 +87,12 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
       return Scaffold(
         backgroundColor: AppColors.bg,
         appBar: AppBar(
-          title: const Text('Edit bio'),
+          title: Text(l.editBioTitle),
           actions: [
             TextButton(
               onPressed: valid && !_saving ? _onSaveStandalone : null,
               child: Text(
-                _saving ? 'Saving…' : 'Save',
+                _saving ? l.actionSaving : l.actionSave,
                 style: TextStyle(
                   color: valid ? AppColors.accent : AppColors.muted,
                   fontWeight: FontWeight.w600,
@@ -131,14 +133,14 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
                         const StepBar(step: 2),
                         const SizedBox(height: 28),
                         Text(
-                          'Write a short bio',
+                          l.onbBioTitle,
                           style: text.headlineMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'A sentence or two about you. Keep it light.',
+                          l.onbBioSubtitle,
                           style: text.bodyMedium
                               ?.copyWith(color: AppColors.muted),
                         ),
@@ -150,7 +152,7 @@ class _EditBioScreenState extends ConsumerState<EditBioScreen> {
                         const Spacer(),
                         const SizedBox(height: 16),
                         Btn(
-                          label: _saving ? 'Saving…' : 'Continue',
+                          label: _saving ? l.actionSaving : l.actionContinue,
                           onPressed: form.isBioValid && !_saving
                               ? _onContinueOnboarding
                               : null,
@@ -178,6 +180,7 @@ class _BioEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final length = controller.text.characters.length;
+    final l = context.l10n;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -194,8 +197,8 @@ class _BioEditor extends StatelessWidget {
             maxLines: 6,
             maxLength: _bioLimit,
             onChanged: onChanged,
-            decoration: const InputDecoration(
-              hintText: 'I love early morning coffee, hiking on weekends…',
+            decoration: InputDecoration(
+              hintText: l.onbBioHint,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,

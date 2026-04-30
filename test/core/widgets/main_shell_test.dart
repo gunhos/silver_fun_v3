@@ -6,6 +6,7 @@ import 'package:silver_fun/core/widgets/main_shell.dart';
 import 'package:silver_fun/features/chat/models/match_thread.dart';
 import 'package:silver_fun/features/chat/providers/chats_provider.dart';
 import 'package:silver_fun/features/feed/providers/likes_provider.dart';
+import 'package:silver_fun/l10n/app_localizations.dart';
 import 'package:silver_fun/models/chat_message.dart';
 import 'package:silver_fun/models/user_profile.dart';
 
@@ -58,7 +59,12 @@ Widget _harness({
       matchThreadsProvider.overrideWith((ref) => Stream.value(threads)),
       likedByOthersProvider.overrideWith((ref) => Stream.value(likers)),
     ],
-    child: MaterialApp.router(routerConfig: router),
+    child: MaterialApp.router(
+      routerConfig: router,
+      locale: const Locale('en'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+    ),
   );
 }
 
