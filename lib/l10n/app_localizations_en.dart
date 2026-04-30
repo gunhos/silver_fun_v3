@@ -519,4 +519,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toastMeetupCanceled => 'Meetup canceled';
+
+  @override
+  String get settingsSectionDisplay => 'Display';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageSystem => 'System default';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLanguageKorean => '한국어';
+
+  @override
+  String get settingsLanguageDialogTitle => 'Choose language';
+
+  @override
+  String get settingsLanguageDialogCancel => 'Cancel';
+
+  @override
+  String get settingsEditInterests => 'Edit interests';
+
+  @override
+  String get editInterestsTitle => 'Edit interests';
+
+  @override
+  String get editInterestsSubtitle => 'Choose 3 to 6 things you love.';
+
+  @override
+  String get youEditInterests => 'Edit interests';
+
+  @override
+  String get toastLanguageSaved => 'Language updated';
+
+  @override
+  String get toastInterestsUpdated => 'Interests updated';
 }

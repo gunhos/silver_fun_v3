@@ -43,6 +43,7 @@ void main() {
     expect(find.text('Coffee'), findsOneWidget);
     expect(find.text('Reading'), findsOneWidget);
     expect(find.text('Edit bio'), findsOneWidget);
+    expect(find.text('Edit interests'), findsOneWidget);
   });
 
   testWidgets('YouScreen shows paused status when profile is paused',

@@ -225,5 +225,19 @@
   "toastMeetupCreated": "Meetup created",
   "toastMeetupJoined": "You joined the meetup",
   "toastMeetupLeft": "You left the meetup",
-  "toastMeetupCanceled": "Meetup canceled"
+  "toastMeetupCanceled": "Meetup canceled",
+
+  "settingsSectionDisplay": "Display",
+  "settingsLanguage": "Language",
+  "settingsLanguageSystem": "System default",
+  "settingsLanguageEnglish": "English",
+  "settingsLanguageKorean": "한국어",
+  "settingsLanguageDialogTitle": "Choose language",
+  "settingsLanguageDialogCancel": "Cancel",
+  "settingsEditInterests": "Edit interests",
+  "editInterestsTitle": "Edit interests",
+  "editInterestsSubtitle": "Choose 3 to 6 things you love.",
+  "youEditInterests": "Edit interests",
+  "toastLanguageSaved": "Language updated",
+  "toastInterestsUpdated": "Interests updated"
 }

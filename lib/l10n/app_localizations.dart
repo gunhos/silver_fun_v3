@@ -1063,6 +1063,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Meetup canceled'**
   String get toastMeetupCanceled;
+
+  /// No description provided for @settingsSectionDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get settingsSectionDisplay;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEnglish;
+
+  /// No description provided for @settingsLanguageKorean.
+  ///
+  /// In en, this message translates to:
+  /// **'한국어'**
+  String get settingsLanguageKorean;
+
+  /// No description provided for @settingsLanguageDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose language'**
+  String get settingsLanguageDialogTitle;
+
+  /// No description provided for @settingsLanguageDialogCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get settingsLanguageDialogCancel;
+
+  /// No description provided for @settingsEditInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit interests'**
+  String get settingsEditInterests;
+
+  /// No description provided for @editInterestsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit interests'**
+  String get editInterestsTitle;
+
+  /// No description provided for @editInterestsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose 3 to 6 things you love.'**
+  String get editInterestsSubtitle;
+
+  /// No description provided for @youEditInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit interests'**
+  String get youEditInterests;
+
+  /// No description provided for @toastLanguageSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Language updated'**
+  String get toastLanguageSaved;
+
+  /// No description provided for @toastInterestsUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests updated'**
+  String get toastInterestsUpdated;
 }
 
 class _AppLocalizationsDelegate

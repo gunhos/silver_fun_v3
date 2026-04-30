@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/l10n_extension.dart';
+import '../../../core/providers/locale_preference_provider.dart';
 import '../../../core/providers/toast_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
@@ -92,6 +93,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
                 const _DividerRow(),
                 ListTile(
+                  title: Text(l.settingsEditInterests),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.muted,
+                  ),
+                  onTap: () => context.push('/edit-interests'),
+                ),
+                const _DividerRow(),
+                ListTile(
                   title: Text(l.settingsWhoCanSeeMe),
                   subtitle: Text(
                     l.settingsWhoCanSeeMeValue,
@@ -102,6 +112,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     color: AppColors.muted,
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            _SectionTitle(l.settingsSectionDisplay),
+            _SettingsCard(
+              children: [
+                _LanguageRow(),
               ],
             ),
             const SizedBox(height: 20),
@@ -259,4 +276,75 @@ class _SignOutButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class _LanguageRow extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final selected = ref.watch(localePreferenceProvider).valueOrNull;
+    final subtitle = switch (selected?.languageCode) {
+      'en' => l.settingsLanguageEnglish,
+      'ko' => l.settingsLanguageKorean,
+      _ => l.settingsLanguageSystem,
+    };
+    return ListTile(
+      title: Text(l.settingsLanguage),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(color: AppColors.muted),
+      ),
+      trailing: const Icon(Icons.chevron_right, color: AppColors.muted),
+      onTap: () => _showLanguageDialog(context, ref, selected),
+    );
+  }
+}
+
+Future<void> _showLanguageDialog(
+  BuildContext context,
+  WidgetRef ref,
+  Locale? current,
+) async {
+  final l = context.l10n;
+  await showDialog<void>(
+    context: context,
+    builder: (dialogCtx) {
+      void pick(Locale? locale) {
+        Navigator.of(dialogCtx).pop();
+        ref.read(localePreferenceProvider.notifier).setLocale(locale);
+        showToast(ref, l.toastLanguageSaved);
+      }
+
+      return AlertDialog(
+        title: Text(l.settingsLanguageDialogTitle),
+        content: RadioGroup<String?>(
+          groupValue: current?.languageCode,
+          onChanged: (value) => pick(value == null ? null : Locale(value)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<String?>(
+                value: null,
+                title: Text(l.settingsLanguageSystem),
+              ),
+              RadioListTile<String?>(
+                value: 'en',
+                title: Text(l.settingsLanguageEnglish),
+              ),
+              RadioListTile<String?>(
+                value: 'ko',
+                title: Text(l.settingsLanguageKorean),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(),
+            child: Text(l.settingsLanguageDialogCancel),
+          ),
+        ],
+      );
+    },
+  );
 }

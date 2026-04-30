@@ -188,5 +188,19 @@
   "toastMeetupCreated": "모임을 만들었어요",
   "toastMeetupJoined": "모임에 참여했어요",
   "toastMeetupLeft": "참여를 취소했어요",
-  "toastMeetupCanceled": "모임을 취소했어요"
+  "toastMeetupCanceled": "모임을 취소했어요",
+
+  "settingsSectionDisplay": "화면",
+  "settingsLanguage": "언어",
+  "settingsLanguageSystem": "시스템 기본",
+  "settingsLanguageEnglish": "영어",
+  "settingsLanguageKorean": "한국어",
+  "settingsLanguageDialogTitle": "언어를 선택하세요",
+  "settingsLanguageDialogCancel": "취소",
+  "settingsEditInterests": "관심사 수정",
+  "editInterestsTitle": "관심사 수정",
+  "editInterestsSubtitle": "좋아하시는 것 3가지에서 6가지를 골라 주세요.",
+  "youEditInterests": "관심사 수정",
+  "toastLanguageSaved": "언어를 바꿨어요",
+  "toastInterestsUpdated": "관심사를 바꿨어요"
 }

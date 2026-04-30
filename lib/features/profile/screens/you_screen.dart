@@ -155,6 +155,12 @@ class _YouBody extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Btn(
+            label: l.youEditInterests,
+            variant: BtnVariant.ghost,
+            onPressed: () => context.push('/edit-interests'),
+          ),
+          const SizedBox(height: 12),
+          Btn(
             label: l.youEditBio,
             onPressed: () => context.push('/edit-bio'),
           ),

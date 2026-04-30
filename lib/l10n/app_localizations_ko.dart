@@ -514,4 +514,43 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get toastMeetupCanceled => '모임을 취소했어요';
+
+  @override
+  String get settingsSectionDisplay => '화면';
+
+  @override
+  String get settingsLanguage => '언어';
+
+  @override
+  String get settingsLanguageSystem => '시스템 기본';
+
+  @override
+  String get settingsLanguageEnglish => '영어';
+
+  @override
+  String get settingsLanguageKorean => '한국어';
+
+  @override
+  String get settingsLanguageDialogTitle => '언어를 선택하세요';
+
+  @override
+  String get settingsLanguageDialogCancel => '취소';
+
+  @override
+  String get settingsEditInterests => '관심사 수정';
+
+  @override
+  String get editInterestsTitle => '관심사 수정';
+
+  @override
+  String get editInterestsSubtitle => '좋아하시는 것 3가지에서 6가지를 골라 주세요.';
+
+  @override
+  String get youEditInterests => '관심사 수정';
+
+  @override
+  String get toastLanguageSaved => '언어를 바꿨어요';
+
+  @override
+  String get toastInterestsUpdated => '관심사를 바꿨어요';
 }

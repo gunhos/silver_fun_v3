@@ -18,6 +18,7 @@ import '../../features/onboarding/screens/interests_screen.dart';
 import '../../features/onboarding/screens/name_age_screen.dart';
 import '../../features/onboarding/screens/preview_screen.dart';
 import '../../features/profile/providers/my_profile_provider.dart';
+import '../../features/profile/screens/edit_interests_screen.dart';
 import '../../features/profile/screens/liked_you_screen.dart';
 import '../../features/profile/screens/settings_screen.dart';
 import '../../features/profile/screens/you_screen.dart';
@@ -148,6 +149,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/edit-bio',
         builder: (_, _) => const EditBioScreen(standalone: true),
+      ),
+      GoRoute(
+        path: '/edit-interests',
+        builder: (_, _) => const EditInterestsScreen(),
       ),
     ],
     debugLogDiagnostics: kDebugMode,
