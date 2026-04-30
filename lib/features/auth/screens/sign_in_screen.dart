@@ -47,7 +47,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               const _Logo(),
               const SizedBox(height: 28),
               Text(
-                'Kindred',
+                'Silvers Fun',
                 style: text.displayMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.ink,
@@ -55,7 +55,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Find your kindred spirits.',
+                'Friendly company for the next chapter.',
                 textAlign: TextAlign.center,
                 style: text.bodyLarge?.copyWith(color: AppColors.muted),
               ),

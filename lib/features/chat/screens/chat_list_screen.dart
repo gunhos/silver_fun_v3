@@ -264,12 +264,12 @@ class _NoConversationsHint extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Say hi to a match',
+            'Say hello to a new connection',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           const Text(
-            'Tap a match above to start a conversation.',
+            'Tap a friend above to start a conversation.',
             textAlign: TextAlign.center,
             style: TextStyle(color: AppColors.muted),
           ),
@@ -291,7 +291,7 @@ class _EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'No matches yet.',
+              'No connections yet.',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),

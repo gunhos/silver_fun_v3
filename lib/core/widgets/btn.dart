@@ -43,7 +43,7 @@ class _BtnState extends State<Btn> {
       duration: const Duration(milliseconds: 90),
       curve: Curves.easeOut,
       child: Container(
-        height: 54,
+        height: 60,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
           color: disabled ? colors.disabled : colors.bg,
@@ -64,7 +64,7 @@ class _BtnState extends State<Btn> {
               style: TextStyle(
                 color: colors.fg,
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
           ],

@@ -22,10 +22,10 @@ class AppTheme {
       headlineMedium: display.headlineMedium?.copyWith(color: AppColors.ink),
       headlineSmall: display.headlineSmall?.copyWith(color: AppColors.ink),
       titleLarge: display.titleLarge?.copyWith(color: AppColors.ink),
-      bodyLarge: body.bodyLarge?.copyWith(color: AppColors.ink),
-      bodyMedium: body.bodyMedium?.copyWith(color: AppColors.ink),
-      bodySmall: body.bodySmall?.copyWith(color: AppColors.muted),
-      labelLarge: body.labelLarge?.copyWith(color: AppColors.ink),
+      bodyLarge: body.bodyLarge?.copyWith(color: AppColors.ink, fontSize: 18),
+      bodyMedium: body.bodyMedium?.copyWith(color: AppColors.ink, fontSize: 16),
+      bodySmall: body.bodySmall?.copyWith(color: AppColors.muted, fontSize: 14),
+      labelLarge: body.labelLarge?.copyWith(color: AppColors.ink, fontSize: 16),
     );
 
     return ThemeData(

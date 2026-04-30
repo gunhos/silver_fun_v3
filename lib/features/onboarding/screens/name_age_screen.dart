@@ -119,7 +119,7 @@ class _NameAgeScreenState extends ConsumerState<NameAgeScreen> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You must be 18 or older to use Kindred.',
+                          'Designed for adults 65+. You must be 18 or older to create an account.',
                           style: text.bodySmall
                               ?.copyWith(color: AppColors.muted),
                         ),

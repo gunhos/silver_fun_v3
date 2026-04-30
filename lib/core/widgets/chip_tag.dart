@@ -25,7 +25,7 @@ class ChipTag extends StatelessWidget {
     final pad = isSm
         ? const EdgeInsets.symmetric(horizontal: 12, vertical: 6)
         : const EdgeInsets.symmetric(horizontal: 16, vertical: 10);
-    final fontSize = isSm ? 12.0 : 14.0;
+    final fontSize = isSm ? 14.0 : 16.0;
 
     return GestureDetector(
       onTap: onTap,
@@ -38,6 +38,8 @@ class ChipTag extends StatelessWidget {
         ),
         child: Text(
           label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: selected ? Colors.white : AppColors.ink,
             fontWeight: FontWeight.w500,

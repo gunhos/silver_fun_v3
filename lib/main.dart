@@ -11,17 +11,17 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child: KindredApp()));
+  runApp(const ProviderScope(child: SilversFunApp()));
 }
 
-class KindredApp extends ConsumerWidget {
-  const KindredApp({super.key});
+class SilversFunApp extends ConsumerWidget {
+  const SilversFunApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      title: 'Kindred',
+      title: 'Silvers Fun',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
       routerConfig: router,

@@ -189,7 +189,7 @@ class _Header extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  name.isEmpty ? 'Match' : name,
+                  name.isEmpty ? 'Friend' : name,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -197,7 +197,7 @@ class _Header extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const Text(
-                  'Matched',
+                  'Connected',
                   style: TextStyle(color: AppColors.muted, fontSize: 12),
                 ),
               ],
@@ -283,7 +283,7 @@ class _MatchCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "It's a match! 🎉",
+                  "You're now connected! 🎉",
                   style: text.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -291,9 +291,28 @@ class _MatchCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   name.isEmpty
-                      ? 'Say hi to start the conversation.'
-                      : 'Say hi to $name to start the conversation.',
+                      ? 'Say hello to start chatting.'
+                      : 'Say hello to $name to start chatting.',
                   style: text.bodySmall?.copyWith(color: AppColors.muted),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.shield_outlined,
+                      size: 16,
+                      color: AppColors.muted,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        'Stay safe — never share personal info, passwords, or money.',
+                        style:
+                            text.bodySmall?.copyWith(color: AppColors.muted),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

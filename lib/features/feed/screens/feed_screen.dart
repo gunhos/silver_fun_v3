@@ -145,7 +145,7 @@ class _ProfileCard extends StatelessWidget {
                   if (chips.isNotEmpty) ...[
                     const SizedBox(height: 6),
                     SizedBox(
-                      height: 28,
+                      height: 34,
                       child: ClipRect(
                         child: OverflowBox(
                           alignment: Alignment.centerLeft,

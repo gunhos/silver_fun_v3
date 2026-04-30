@@ -60,10 +60,10 @@ void main() {
       0.0,
     );
 
-    container.read(toastProvider.notifier).state = "It's a match!";
+    container.read(toastProvider.notifier).state = "You're now connected!";
     await tester.pumpAndSettle();
 
-    expect(find.text("It's a match!"), findsOneWidget);
+    expect(find.text("You're now connected!"), findsOneWidget);
     expect(
       tester.widget<AnimatedOpacity>(find.byType(AnimatedOpacity)).opacity,
       1.0,

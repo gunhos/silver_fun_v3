@@ -59,7 +59,9 @@ class LikesController {
     if (mutual) {
       showToastFromRef(
         _ref,
-        name.isEmpty ? "It's a match! 🎉" : "It's a match with $name! 🎉",
+        name.isEmpty
+            ? "You're now connected! 🎉"
+            : "You and $name are now connected! 🎉",
       );
     } else {
       showToastFromRef(_ref, name.isEmpty ? 'Liked' : 'Liked $name');
