@@ -64,7 +64,7 @@ void main() {
       expect(data['name'], 'Maya');
     });
 
-    test('savePhotoUrl writes the url and preserves other fields', () async {
+    test('savePhotoUrl writes both photoUrl and photoUrls', () async {
       await firestore.collection('users').doc('u1').set({'name': 'Maya'});
 
       await repo.savePhotoUrl(
@@ -74,6 +74,7 @@ void main() {
 
       final data = await readUser('u1');
       expect(data['photoUrl'], 'https://example.com/u1.jpg');
+      expect(data['photoUrls'], ['https://example.com/u1.jpg']);
       expect(data['name'], 'Maya');
     });
 
@@ -102,6 +103,7 @@ void main() {
       expect(data['age'], 31);
       expect(data['bio'], 'Coffee, books, walks.');
       expect(data['photoUrl'], 'https://example.com/u1.jpg');
+      expect(data['photoUrls'], ['https://example.com/u1.jpg']);
       expect(data['interests'], ['Coffee', 'Reading', 'Hiking']);
       expect(data['published'], true);
       expect(data['profilePaused'], false);

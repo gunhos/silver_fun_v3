@@ -107,5 +107,102 @@ void main() {
       expect(doc.exists, true);
       expect(doc.data()!['profilePaused'], true);
     });
+
+    test(
+        'addPhoto appends to photoUrls and sets photoUrl when no main exists',
+        () async {
+      await firestore.collection('users').doc('u1').set({
+        'name': 'Maya',
+        'photoUrl': '',
+      });
+
+      await repo.addPhoto(uid: 'u1', url: 'https://x/1.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/1.jpg');
+      expect(data['photoUrls'], ['https://x/1.jpg']);
+    });
+
+    test('addPhoto does not change photoUrl when a main is already set',
+        () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': ['https://x/main.jpg'],
+      });
+
+      await repo.addPhoto(uid: 'u1', url: 'https://x/2.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/main.jpg');
+      expect(data['photoUrls'], ['https://x/main.jpg', 'https://x/2.jpg']);
+    });
+
+    test('removePhoto removes a non-main url from photoUrls', () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': ['https://x/main.jpg', 'https://x/2.jpg'],
+      });
+
+      await repo.removePhoto(uid: 'u1', url: 'https://x/2.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/main.jpg');
+      expect(data['photoUrls'], ['https://x/main.jpg']);
+    });
+
+    test('removePhoto of the main photo promotes the next photo', () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': ['https://x/main.jpg', 'https://x/2.jpg'],
+      });
+
+      await repo.removePhoto(uid: 'u1', url: 'https://x/main.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/2.jpg');
+      expect(data['photoUrls'], ['https://x/2.jpg']);
+    });
+
+    test('removePhoto of the only photo clears photoUrl and photoUrls',
+        () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': ['https://x/main.jpg'],
+      });
+
+      await repo.removePhoto(uid: 'u1', url: 'https://x/main.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], '');
+      expect(data['photoUrls'], isEmpty);
+    });
+
+    test('setMainPhoto reorders photoUrls and updates photoUrl', () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/1.jpg',
+        'photoUrls': ['https://x/1.jpg', 'https://x/2.jpg', 'https://x/3.jpg'],
+      });
+
+      await repo.setMainPhoto(uid: 'u1', url: 'https://x/3.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/3.jpg');
+      expect(data['photoUrls'],
+          ['https://x/3.jpg', 'https://x/1.jpg', 'https://x/2.jpg']);
+    });
+
+    test('setMainPhoto is a no-op when the url is not in photoUrls',
+        () async {
+      await firestore.collection('users').doc('u1').set({
+        'photoUrl': 'https://x/1.jpg',
+        'photoUrls': ['https://x/1.jpg', 'https://x/2.jpg'],
+      });
+
+      await repo.setMainPhoto(uid: 'u1', url: 'https://x/unknown.jpg');
+
+      final data = (await firestore.collection('users').doc('u1').get()).data()!;
+      expect(data['photoUrl'], 'https://x/1.jpg');
+      expect(data['photoUrls'], ['https://x/1.jpg', 'https://x/2.jpg']);
+    });
   });
 }

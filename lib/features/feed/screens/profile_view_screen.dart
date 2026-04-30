@@ -8,7 +8,7 @@ import '../../../core/providers/toast_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/btn.dart';
 import '../../../core/widgets/chip_tag.dart';
-import '../../../core/widgets/photo_widget.dart';
+import '../../../core/widgets/photo_carousel.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../models/user_profile.dart';
 import '../providers/feed_provider.dart';
@@ -107,7 +107,7 @@ class _ProfileBody extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: PhotoWidget(url: profile.photoUrl),
+                child: PhotoCarousel(urls: profile.photoUrls),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),

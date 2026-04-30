@@ -90,6 +90,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     Icons.chevron_right,
                     color: AppColors.muted,
                   ),
+                  onTap: () => context.push('/edit-photos'),
                 ),
                 const _DividerRow(),
                 ListTile(

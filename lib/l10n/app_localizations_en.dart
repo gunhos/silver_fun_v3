@@ -558,4 +558,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toastInterestsUpdated => 'Interests updated';
+
+  @override
+  String get editPhotosTitle => 'Edit photos';
+
+  @override
+  String get editPhotosSubtitle =>
+      'Add up to 6 photos. The first one is your main photo.';
+
+  @override
+  String editPhotosCounter(int count) {
+    return '$count of 6 photos';
+  }
+
+  @override
+  String get editPhotosAdd => 'Add photo';
+
+  @override
+  String get editPhotosActionTakePhoto => 'Take photo';
+
+  @override
+  String get editPhotosActionChooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get editPhotosMainBadge => 'MAIN';
+
+  @override
+  String get editPhotosActionSetMain => 'Set as main';
+
+  @override
+  String get editPhotosActionRemove => 'Remove';
+
+  @override
+  String get editPhotosActionCancel => 'Cancel';
+
+  @override
+  String get editPhotosCannotRemoveLast => 'You need at least one photo.';
+
+  @override
+  String get editPhotosErrorAdd => 'Could not add photo. Please try again.';
+
+  @override
+  String get editPhotosErrorRemove =>
+      'Could not remove photo. Please try again.';
+
+  @override
+  String get editPhotosErrorSetMain =>
+      'Could not update main photo. Please try again.';
+
+  @override
+  String get toastPhotoAdded => 'Photo added';
+
+  @override
+  String get toastPhotoRemoved => 'Photo removed';
+
+  @override
+  String get toastMainPhotoUpdated => 'Main photo updated';
+
+  @override
+  String get youEditPhotos => 'Edit photos';
 }

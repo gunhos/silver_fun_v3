@@ -202,5 +202,24 @@
   "editInterestsSubtitle": "좋아하시는 것 3가지에서 6가지를 골라 주세요.",
   "youEditInterests": "관심사 수정",
   "toastLanguageSaved": "언어를 바꿨어요",
-  "toastInterestsUpdated": "관심사를 바꿨어요"
+  "toastInterestsUpdated": "관심사를 바꿨어요",
+
+  "editPhotosTitle": "사진 수정",
+  "editPhotosSubtitle": "사진은 최대 6장까지 올릴 수 있어요. 첫 번째 사진이 대표 사진이에요.",
+  "editPhotosCounter": "사진 {count} / 6장",
+  "editPhotosAdd": "사진 추가",
+  "editPhotosActionTakePhoto": "사진 찍기",
+  "editPhotosActionChooseFromGallery": "사진첩에서 고르기",
+  "editPhotosMainBadge": "대표",
+  "editPhotosActionSetMain": "대표 사진으로 지정",
+  "editPhotosActionRemove": "삭제",
+  "editPhotosActionCancel": "취소",
+  "editPhotosCannotRemoveLast": "사진이 한 장 이상 있어야 해요.",
+  "editPhotosErrorAdd": "사진을 올리지 못했어요. 다시 시도해 주세요.",
+  "editPhotosErrorRemove": "사진을 삭제하지 못했어요. 다시 시도해 주세요.",
+  "editPhotosErrorSetMain": "대표 사진을 바꾸지 못했어요. 다시 시도해 주세요.",
+  "toastPhotoAdded": "사진을 추가했어요",
+  "toastPhotoRemoved": "사진을 삭제했어요",
+  "toastMainPhotoUpdated": "대표 사진을 바꿨어요",
+  "youEditPhotos": "사진 수정"
 }

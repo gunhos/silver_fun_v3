@@ -35,6 +35,7 @@ void main() {
       expect(profile.age, 31);
       expect(profile.bio, 'Coffee, books, walks.');
       expect(profile.photoUrl, 'https://example.com/maya.jpg');
+      expect(profile.photoUrls, ['https://example.com/maya.jpg']);
       expect(profile.interests, ['Coffee', 'Reading', 'Hiking']);
       expect(profile.city, 'Brooklyn');
       expect(profile.published, true);
@@ -55,6 +56,7 @@ void main() {
       expect(profile.age, 0);
       expect(profile.bio, '');
       expect(profile.photoUrl, '');
+      expect(profile.photoUrls, isEmpty);
       expect(profile.interests, isEmpty);
       expect(profile.city, '');
       expect(profile.published, false);
@@ -74,6 +76,121 @@ void main() {
       expect(profile.interests, ['Coffee', 'Hiking']);
     });
 
+    test('fromFirestore parses photoUrls when present', () async {
+      await firestore.collection('users').doc('p1').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': [
+          'https://x/main.jpg',
+          'https://x/2.jpg',
+          'https://x/3.jpg',
+        ],
+      });
+
+      final doc = await firestore.collection('users').doc('p1').get();
+      final profile = UserProfile.fromFirestore(doc);
+
+      expect(profile.photoUrl, 'https://x/main.jpg');
+      expect(profile.photoUrls, [
+        'https://x/main.jpg',
+        'https://x/2.jpg',
+        'https://x/3.jpg',
+      ]);
+    });
+
+    test('fromFirestore synthesizes photoUrls from legacy photoUrl',
+        () async {
+      await firestore.collection('users').doc('p2').set({
+        'photoUrl': 'https://x/legacy.jpg',
+      });
+
+      final doc = await firestore.collection('users').doc('p2').get();
+      final profile = UserProfile.fromFirestore(doc);
+
+      expect(profile.photoUrl, 'https://x/legacy.jpg');
+      expect(profile.photoUrls, ['https://x/legacy.jpg']);
+    });
+
+    test('fromFirestore returns empty photoUrls when both fields are missing',
+        () async {
+      await firestore.collection('users').doc('p3').set(<String, dynamic>{});
+
+      final doc = await firestore.collection('users').doc('p3').get();
+      final profile = UserProfile.fromFirestore(doc);
+
+      expect(profile.photoUrl, '');
+      expect(profile.photoUrls, isEmpty);
+    });
+
+    test(
+        'fromFirestore filters non-string and empty entries from photoUrls',
+        () async {
+      await firestore.collection('users').doc('p4').set({
+        'photoUrl': 'https://x/main.jpg',
+        'photoUrls': ['https://x/main.jpg', '', 42, null, 'https://x/2.jpg'],
+      });
+
+      final doc = await firestore.collection('users').doc('p4').get();
+      final profile = UserProfile.fromFirestore(doc);
+
+      expect(profile.photoUrls, ['https://x/main.jpg', 'https://x/2.jpg']);
+    });
+
+    test(
+        'fromFirestore promotes photoUrls[0] to photoUrl when photoUrl is empty',
+        () async {
+      await firestore.collection('users').doc('p5').set({
+        'photoUrl': '',
+        'photoUrls': ['https://x/2.jpg', 'https://x/3.jpg'],
+      });
+
+      final doc = await firestore.collection('users').doc('p5').get();
+      final profile = UserProfile.fromFirestore(doc);
+
+      expect(profile.photoUrl, 'https://x/2.jpg');
+      expect(profile.photoUrls, ['https://x/2.jpg', 'https://x/3.jpg']);
+    });
+
+    test('toMap writes both photoUrl and photoUrls', () {
+      const profile = UserProfile(
+        uid: 'p6',
+        name: 'M',
+        age: 30,
+        bio: 'b',
+        photoUrl: 'https://x/main.jpg',
+        photoUrls: ['https://x/main.jpg', 'https://x/2.jpg'],
+        interests: ['Coffee'],
+        city: 'NYC',
+        published: true,
+        profilePaused: false,
+      );
+
+      final map = profile.toMap();
+
+      expect(map['photoUrl'], 'https://x/main.jpg');
+      expect(map['photoUrls'], ['https://x/main.jpg', 'https://x/2.jpg']);
+    });
+
+    test('copyWith overrides photoUrls', () {
+      const a = UserProfile(
+        uid: 'p7',
+        name: 'A',
+        age: 30,
+        bio: 'b',
+        photoUrl: 'https://x/main.jpg',
+        photoUrls: ['https://x/main.jpg'],
+        interests: ['Coffee'],
+        city: 'NYC',
+        published: true,
+        profilePaused: false,
+      );
+
+      final b =
+          a.copyWith(photoUrls: ['https://x/main.jpg', 'https://x/2.jpg']);
+
+      expect(b.photoUrls, ['https://x/main.jpg', 'https://x/2.jpg']);
+      expect(b.photoUrl, 'https://x/main.jpg');
+    });
+
     test('toMap then fromFirestore round-trips', () async {
       const original = UserProfile(
         uid: 'u4',
@@ -81,6 +198,7 @@ void main() {
         age: 28,
         bio: 'Hi.',
         photoUrl: 'https://example.com/j.jpg',
+        photoUrls: ['https://example.com/j.jpg'],
         interests: ['Coffee', 'Yoga'],
         city: 'Oakland',
         published: true,

@@ -1141,6 +1141,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Interests updated'**
   String get toastInterestsUpdated;
+
+  /// No description provided for @editPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit photos'**
+  String get editPhotosTitle;
+
+  /// No description provided for @editPhotosSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add up to 6 photos. The first one is your main photo.'**
+  String get editPhotosSubtitle;
+
+  /// No description provided for @editPhotosCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 6 photos'**
+  String editPhotosCounter(int count);
+
+  /// No description provided for @editPhotosAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo'**
+  String get editPhotosAdd;
+
+  /// No description provided for @editPhotosActionTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get editPhotosActionTakePhoto;
+
+  /// No description provided for @editPhotosActionChooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get editPhotosActionChooseFromGallery;
+
+  /// No description provided for @editPhotosMainBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'MAIN'**
+  String get editPhotosMainBadge;
+
+  /// No description provided for @editPhotosActionSetMain.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as main'**
+  String get editPhotosActionSetMain;
+
+  /// No description provided for @editPhotosActionRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get editPhotosActionRemove;
+
+  /// No description provided for @editPhotosActionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get editPhotosActionCancel;
+
+  /// No description provided for @editPhotosCannotRemoveLast.
+  ///
+  /// In en, this message translates to:
+  /// **'You need at least one photo.'**
+  String get editPhotosCannotRemoveLast;
+
+  /// No description provided for @editPhotosErrorAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add photo. Please try again.'**
+  String get editPhotosErrorAdd;
+
+  /// No description provided for @editPhotosErrorRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not remove photo. Please try again.'**
+  String get editPhotosErrorRemove;
+
+  /// No description provided for @editPhotosErrorSetMain.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update main photo. Please try again.'**
+  String get editPhotosErrorSetMain;
+
+  /// No description provided for @toastPhotoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo added'**
+  String get toastPhotoAdded;
+
+  /// No description provided for @toastPhotoRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo removed'**
+  String get toastPhotoRemoved;
+
+  /// No description provided for @toastMainPhotoUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Main photo updated'**
+  String get toastMainPhotoUpdated;
+
+  /// No description provided for @youEditPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit photos'**
+  String get youEditPhotos;
 }
 
 class _AppLocalizationsDelegate

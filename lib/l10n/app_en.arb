@@ -239,5 +239,27 @@
   "editInterestsSubtitle": "Choose 3 to 6 things you love.",
   "youEditInterests": "Edit interests",
   "toastLanguageSaved": "Language updated",
-  "toastInterestsUpdated": "Interests updated"
+  "toastInterestsUpdated": "Interests updated",
+
+  "editPhotosTitle": "Edit photos",
+  "editPhotosSubtitle": "Add up to 6 photos. The first one is your main photo.",
+  "editPhotosCounter": "{count} of 6 photos",
+  "@editPhotosCounter": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "editPhotosAdd": "Add photo",
+  "editPhotosActionTakePhoto": "Take photo",
+  "editPhotosActionChooseFromGallery": "Choose from gallery",
+  "editPhotosMainBadge": "MAIN",
+  "editPhotosActionSetMain": "Set as main",
+  "editPhotosActionRemove": "Remove",
+  "editPhotosActionCancel": "Cancel",
+  "editPhotosCannotRemoveLast": "You need at least one photo.",
+  "editPhotosErrorAdd": "Could not add photo. Please try again.",
+  "editPhotosErrorRemove": "Could not remove photo. Please try again.",
+  "editPhotosErrorSetMain": "Could not update main photo. Please try again.",
+  "toastPhotoAdded": "Photo added",
+  "toastPhotoRemoved": "Photo removed",
+  "toastMainPhotoUpdated": "Main photo updated",
+  "youEditPhotos": "Edit photos"
 }

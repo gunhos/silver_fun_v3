@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,12 +49,16 @@ class OnboardingRepository {
     }, SetOptions(merge: true));
   }
 
+  /// Write the onboarding photo as both the main photo and the only entry of
+  /// the gallery. After this call the user document is in canonical
+  /// dual-field shape.
   Future<void> savePhotoUrl({
     required String uid,
     required String url,
   }) {
     return _users.doc(uid).set({
       'photoUrl': url,
+      'photoUrls': [url],
     }, SetOptions(merge: true));
   }
 
@@ -73,6 +78,7 @@ class OnboardingRepository {
       'age': form.age,
       'bio': form.bio.trim(),
       'photoUrl': form.photoUrl,
+      'photoUrls': form.photoUrl.isEmpty ? <String>[] : [form.photoUrl],
       'interests': form.interests,
       'published': true,
       'profilePaused': false,
@@ -90,7 +96,9 @@ Future<String> _defaultUploader(String uid, XFile file) async {
     quality: 85,
     format: CompressFormat.jpeg,
   );
-  final ref = FirebaseStorage.instance.ref('profile-photos/$uid.jpg');
+  final ms = DateTime.now().millisecondsSinceEpoch;
+  final rand = Random.secure().nextInt(10000).toString().padLeft(4, '0');
+  final ref = FirebaseStorage.instance.ref('profile-photos/$uid/${ms}_$rand.jpg');
   await ref.putData(
     bytes,
     SettableMetadata(contentType: 'image/jpeg'),

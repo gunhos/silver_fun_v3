@@ -24,3 +24,6 @@ const List<String> kInterestPool = [
   'Cats',
   'Plants',
 ];
+
+/// Maximum number of profile photos a single user can have.
+const int kMaxProfilePhotos = 6;

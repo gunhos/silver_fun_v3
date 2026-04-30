@@ -5,7 +5,15 @@ class UserProfile {
   final String name;
   final int age;
   final String bio;
+
+  /// Main profile photo URL. Equals `photoUrls[0]` when `photoUrls` is
+  /// non-empty. Empty string means the user has no photo.
   final String photoUrl;
+
+  /// All profile photos in display order, including the main photo at index 0.
+  /// May be empty when the user has no photos.
+  final List<String> photoUrls;
+
   final List<String> interests;
   final String city;
   final bool published;
@@ -20,6 +28,7 @@ class UserProfile {
     required this.age,
     required this.bio,
     required this.photoUrl,
+    this.photoUrls = const <String>[],
     required this.interests,
     required this.city,
     required this.published,
@@ -31,12 +40,35 @@ class UserProfile {
 
   factory UserProfile.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data() ?? const <String, dynamic>{};
+
+    final mainUrl = (data['photoUrl'] as String?) ?? '';
+    final rawList = ((data['photoUrls'] as List?) ?? const [])
+        .whereType<String>()
+        .where((s) => s.isNotEmpty)
+        .toList(growable: false);
+
+    final List<String> normalizedUrls;
+    final String normalizedMain;
+    if (rawList.isEmpty) {
+      if (mainUrl.isEmpty) {
+        normalizedUrls = const <String>[];
+        normalizedMain = '';
+      } else {
+        normalizedUrls = <String>[mainUrl];
+        normalizedMain = mainUrl;
+      }
+    } else {
+      normalizedUrls = rawList;
+      normalizedMain = mainUrl.isEmpty ? rawList.first : mainUrl;
+    }
+
     return UserProfile(
       uid: doc.id,
       name: (data['name'] as String?) ?? '',
       age: (data['age'] as num?)?.toInt() ?? 0,
       bio: (data['bio'] as String?) ?? '',
-      photoUrl: (data['photoUrl'] as String?) ?? '',
+      photoUrl: normalizedMain,
+      photoUrls: normalizedUrls,
       interests: ((data['interests'] as List?) ?? const [])
           .whereType<String>()
           .toList(),
@@ -54,6 +86,7 @@ class UserProfile {
       'age': age,
       'bio': bio,
       'photoUrl': photoUrl,
+      'photoUrls': photoUrls,
       'interests': interests,
       'city': city,
       'published': published,
@@ -69,6 +102,7 @@ class UserProfile {
     int? age,
     String? bio,
     String? photoUrl,
+    List<String>? photoUrls,
     List<String>? interests,
     String? city,
     bool? published,
@@ -83,6 +117,7 @@ class UserProfile {
       age: age ?? this.age,
       bio: bio ?? this.bio,
       photoUrl: photoUrl ?? this.photoUrl,
+      photoUrls: photoUrls ?? this.photoUrls,
       interests: interests ?? this.interests,
       city: city ?? this.city,
       published: published ?? this.published,

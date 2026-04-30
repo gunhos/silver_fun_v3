@@ -553,4 +553,60 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get toastInterestsUpdated => '관심사를 바꿨어요';
+
+  @override
+  String get editPhotosTitle => '사진 수정';
+
+  @override
+  String get editPhotosSubtitle => '사진은 최대 6장까지 올릴 수 있어요. 첫 번째 사진이 대표 사진이에요.';
+
+  @override
+  String editPhotosCounter(int count) {
+    return '사진 $count / 6장';
+  }
+
+  @override
+  String get editPhotosAdd => '사진 추가';
+
+  @override
+  String get editPhotosActionTakePhoto => '사진 찍기';
+
+  @override
+  String get editPhotosActionChooseFromGallery => '사진첩에서 고르기';
+
+  @override
+  String get editPhotosMainBadge => '대표';
+
+  @override
+  String get editPhotosActionSetMain => '대표 사진으로 지정';
+
+  @override
+  String get editPhotosActionRemove => '삭제';
+
+  @override
+  String get editPhotosActionCancel => '취소';
+
+  @override
+  String get editPhotosCannotRemoveLast => '사진이 한 장 이상 있어야 해요.';
+
+  @override
+  String get editPhotosErrorAdd => '사진을 올리지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get editPhotosErrorRemove => '사진을 삭제하지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get editPhotosErrorSetMain => '대표 사진을 바꾸지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get toastPhotoAdded => '사진을 추가했어요';
+
+  @override
+  String get toastPhotoRemoved => '사진을 삭제했어요';
+
+  @override
+  String get toastMainPhotoUpdated => '대표 사진을 바꿨어요';
+
+  @override
+  String get youEditPhotos => '사진 수정';
 }
