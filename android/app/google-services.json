@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "703995993998-v9nnbbi9tcjaq7iru1td6pvvkuv2o32a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.mathminds.silver_fun",
+            "certificate_hash": "3fe088b0841809dd7bb243e0573149df8234c230"
+          }
+        },
+        {
           "client_id": "703995993998-hce5q9gaf5qu54eq8oifcgn4pihm0h6e.apps.googleusercontent.com",
           "client_type": 3
         }
