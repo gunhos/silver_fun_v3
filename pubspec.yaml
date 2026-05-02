@@ -35,7 +35,27 @@ dev_dependencies:
   firebase_auth_mocks: ^0.14.1
   mockito: ^5.4.4
   build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.14.1
+  flutter_native_splash: ^2.4.1
 
 flutter:
   uses-material-design: true
   generate: true
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: false
+  image_path: "assets/branding/app_icon_source_1024.png"
+  adaptive_icon_background: "#F2EEFF"
+  adaptive_icon_foreground: "assets/branding/app_icon_foreground_adaptive_432.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#F2EEFF"
+  image: "assets/branding/splash_icon_1152.png"
+  android: true
+  ios: false
+  web: false
+  android_12:
+    color: "#F2EEFF"
+    image: "assets/branding/splash_icon_1152.png"
