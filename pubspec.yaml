@@ -1,7 +1,7 @@
 name: silver_fun
 description: "Silvers Fun — a friendly companionship app for adults 65+."
-publish_to: 'none'
-version: 1.0.1+2
+publish_to: "none"
+version: 1.0.3+4
 
 environment:
   sdk: ^3.11.5
