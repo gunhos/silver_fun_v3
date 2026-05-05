@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/config/google_auth_config.dart';
 import '../services/google_auth_service.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>(
@@ -8,7 +9,10 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
 );
 
 final googleAuthServiceProvider = Provider<GoogleAuthService>((ref) {
-  return GoogleAuthService(auth: ref.watch(firebaseAuthProvider));
+  return GoogleAuthService(
+    auth: ref.watch(firebaseAuthProvider),
+    serverClientId: googleWebClientId,
+  );
 });
 
 final authProvider = StreamProvider<User?>((ref) {
