@@ -1,4 +1,4 @@
-package dev.mathminds.silver_fun
+package ai.mathminds.silvers_fun
 
 import io.flutter.embedding.android.FlutterActivity
 
