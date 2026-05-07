@@ -1,3 +1,6 @@
+import 'dart:developer' as developer;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,9 +30,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     try {
       await ref.read(googleAuthServiceProvider).signIn();
       // Router redirect handles post-sign-in navigation.
-    } catch (e) {
+    } catch (e, st) {
+      developer.log(
+        'Google sign-in failed',
+        name: 'auth',
+        error: e,
+        stackTrace: st,
+      );
       if (!mounted) return;
-      setState(() => _error = errorText);
+      setState(() => _error = kDebugMode ? '$errorText\n$e' : errorText);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
