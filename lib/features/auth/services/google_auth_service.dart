@@ -11,19 +11,13 @@ class GoogleAuthService {
   final CredentialFetcher? _credentialFetcher;
   final GoogleSignOutFn? _googleSignOut;
 
-  /// [serverClientId] is the Firebase project's Web OAuth client ID. It is
-  /// required on Android release builds signed by Play App Signing so that
-  /// `google_sign_in` 6.x can return an `idToken` Firebase Auth will accept.
-  /// Ignored when [googleSignIn] is injected directly (tests).
   GoogleAuthService({
     FirebaseAuth? auth,
     GoogleSignIn? googleSignIn,
-    String? serverClientId,
     @visibleForTesting CredentialFetcher? credentialFetcher,
     @visibleForTesting GoogleSignOutFn? googleSignOut,
   })  : _auth = auth ?? FirebaseAuth.instance,
-        _googleSignIn =
-            googleSignIn ?? GoogleSignIn(serverClientId: serverClientId),
+        _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _credentialFetcher = credentialFetcher,
         _googleSignOut = googleSignOut;
 

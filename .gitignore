@@ -47,8 +47,3 @@ app.*.map.json
 # Android release signing
 *.jks
 android/key.properties
-
-# Generated from android/app/google-services.json by
-# scripts/generate_google_auth_config.py — tracks the active Firebase
-# project, so it should never be checked in.
-/lib/core/config/google_auth_config.dart
